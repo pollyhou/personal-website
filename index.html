@@ -9,58 +9,54 @@
 </head>
 <body class="body-home">
 
-  <!-- ============ 🌳 水彩森林背景 ============ -->
-  <div class="forest-scene">
-
-    <!-- 渐变天空 + 水彩色块 -->
-    <div class="forest-sky"></div>
-
-    <!-- 远处的水彩树影 -->
-    <div class="forest-trees forest-trees-far"></div>
-    <div class="forest-trees forest-trees-mid"></div>
-
-    <!-- ☀️ 阳光丁达尔效应 -->
-    <div class="sun-rays">
-      <div class="sun-ray sun-ray-1"></div>
-      <div class="sun-ray sun-ray-2"></div>
-      <div class="sun-ray sun-ray-3"></div>
-      <div class="sun-ray sun-ray-4"></div>
-      <div class="sun-ray sun-ray-5"></div>
-    </div>
-
-    <!-- 草地前景 -->
-    <div class="forest-grass"></div>
-
-    <!-- 🌸 飘落的花瓣（由 JS 动态生成很多个） -->
-    <div class="petals-layer" id="petals-layer"></div>
-
-    <!-- ✨ 漂浮的阳光光点 -->
-    <div class="sparkle-layer" id="sparkle-layer"></div>
+  <!-- ============================================================
+       🌳 第 0 层: 静态插画背景
+       请把插画保存为 home-bg.jpg 放到项目根目录
+       ============================================================ -->
+  <div class="bg-layer">
+    <div class="bg-img"></div>
+    <!-- 轻微的暗角，让画面更像油画 -->
+    <div class="bg-vignette"></div>
   </div>
 
-  <!-- ============ 🦊🐻🐑 森林小动物 ============ -->
-  <div class="forest-critters">
-    <!-- 小狐狸 -->
-    <div class="critter critter-fox">
-      <div class="critter-body">🦊</div>
-      <div class="critter-shadow"></div>
-    </div>
-    <!-- 小熊 -->
-    <div class="critter critter-bear">
-      <div class="critter-body">🐻</div>
-      <div class="critter-shadow"></div>
-    </div>
-    <!-- 小羊 -->
-    <div class="critter critter-sheep">
-      <div class="critter-body">🐑</div>
-      <div class="critter-shadow"></div>
-    </div>
-    <!-- 一只小蝴蝶 -->
-    <div class="critter critter-butterfly">
-      <div class="critter-body">🦋</div>
-    </div>
+  <!-- ============================================================
+       ☀️ 第 1 层: 金色丁达尔光束 (CSS)
+       ============================================================ -->
+  <div class="rays-layer">
+    <div class="ray ray-1"></div>
+    <div class="ray ray-2"></div>
+    <div class="ray ray-3"></div>
+    <div class="ray ray-4"></div>
+    <div class="ray ray-5"></div>
+    <div class="ray ray-6"></div>
   </div>
 
+  <!-- ============================================================
+       ✨ 第 2 层: 圆形柔光光斑 (CSS)
+       ============================================================ -->
+  <div class="bokeh-layer">
+    <div class="bokeh bokeh-1"></div>
+    <div class="bokeh bokeh-2"></div>
+    <div class="bokeh bokeh-3"></div>
+    <div class="bokeh bokeh-4"></div>
+    <div class="bokeh bokeh-5"></div>
+    <div class="bokeh bokeh-6"></div>
+    <div class="bokeh bokeh-7"></div>
+  </div>
+
+  <!-- ============================================================
+       🌸 第 3 层: Canvas 花瓣粒子 (JS 绘制)
+       ============================================================ -->
+  <canvas id="petals-canvas" class="petals-canvas"></canvas>
+
+  <!-- ============================================================
+       🌙 第 4 层: 全画面亮度呼吸 (CSS)
+       ============================================================ -->
+  <div class="breath-layer"></div>
+
+  <!-- ============================================================
+       🧭 导航栏 (半透明磨砂玻璃)
+       ============================================================ -->
   <nav class="nav nav-transparent">
     <a class="nav-brand nav-brand-white" href="index.html">侯小雯</a>
     <div class="nav-menu">
@@ -73,159 +69,87 @@
     </div>
   </nav>
 
+  <!-- ============================================================
+       🌟 内容区: 头像 + 标题 + 入口卡片
+       ============================================================ -->
   <div class="container container-home">
-
-    <!-- ============ 🌟 个人 IP 头像 + 欢迎语 ============ -->
     <section class="home-hero">
+
+      <!-- 个人头像 (樱花圆) -->
       <div class="home-avatar-wrap">
         <div class="home-avatar-bg"></div>
         <div class="home-avatar-emoji">🌸</div>
       </div>
 
+      <!-- 标题 -->
       <h1 class="home-title home-title-white">
         <span>嗨，我是</span>
         <span class="home-title-name">侯小雯</span>
-        <span class="home-title-wave">👋</span>
       </h1>
 
       <p class="home-subtitle home-subtitle-white">
         与 AI 同行 · 在数字世界里种一片小森林 🌲
       </p>
 
-      <!-- ============ 🎴 交互式入口卡片 ============ -->
+      <!-- 4 张入口卡片 -->
       <div class="home-entries">
 
         <a href="blog.html" class="entry-card entry-blog">
           <div class="entry-icon">
-            <span class="entry-icon-main">📝</span>
-            <span class="entry-icon-bg">📖</span>
+            <span class="entry-icon-main">📖</span>
           </div>
           <div class="entry-text">
             <h3>日志</h3>
             <p>记录灵感与日常</p>
           </div>
-          <div class="entry-arrow">→</div>
         </a>
 
         <a href="portfolio.html" class="entry-card entry-portfolio">
           <div class="entry-icon">
-            <span class="entry-icon-main">🤖</span>
-            <span class="entry-icon-bg">💫</span>
+            <span class="entry-icon-main">🎨</span>
           </div>
           <div class="entry-text">
             <h3>作品集</h3>
             <p>AI 产品与想法实验</p>
           </div>
-          <div class="entry-arrow">→</div>
         </a>
 
         <a href="gallery.html" class="entry-card entry-gallery">
           <div class="entry-icon">
             <span class="entry-icon-main">📮</span>
-            <span class="entry-icon-bg">📷</span>
           </div>
           <div class="entry-text">
             <h3>时光明信片</h3>
             <p>被镜头定格的片刻</p>
           </div>
-          <div class="entry-arrow">→</div>
         </a>
 
         <a href="me.html" class="entry-card entry-me">
           <div class="entry-icon">
             <span class="entry-icon-main">🌿</span>
-            <span class="entry-icon-bg">🌱</span>
           </div>
           <div class="entry-text">
             <h3>我</h3>
             <p>关于我的故事</p>
           </div>
-          <div class="entry-arrow">→</div>
         </a>
 
       </div>
 
-      <div class="home-interaction-hint home-hint-soft">
-        <span class="hint-dot">🌳</span>
-        <span>每一个入口都藏着一个小世界</span>
-        <span class="hint-dot">🌳</span>
-      </div>
     </section>
-
   </div>
 
+  <!-- ============================================================
+       🦶 页脚
+       ============================================================ -->
   <footer class="footer footer-home">
     <p>© 2025 侯小雯 · Made with <span class="footer-heart">♥</span></p>
   </footer>
 
-  <script>
-    /* =========================================================
-       🌸 花瓣飘落动画
-       ========================================================= */
-    (function initPetals() {
-      const layer = document.getElementById('petals-layer');
-      if (!layer) return;
-
-      const PETAL_COUNT = 35;
-      const petalEmojis = ['🌸', '🌸', '🌺', '🌷', '🌼', '🍃', '✨', '🌸'];
-
-      for (let i = 0; i < PETAL_COUNT; i++) {
-        const petal = document.createElement('div');
-        petal.className = 'petal';
-
-        // 随机属性
-        const startX = Math.random() * 100;           // 起始 x（%）
-        const fallDuration = 8 + Math.random() * 10;   // 下落时长 8~18s
-        const delay = Math.random() * -20;              // 负延迟，让动画错开
-        const swayAmount = 30 + Math.random() * 60;    // 左右摇摆幅度
-        const size = 14 + Math.random() * 22;          // 大小
-        const rotationSpeed = (Math.random() - 0.5) * 720; // 旋转速度
-        const emoji = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
-        const opacity = 0.55 + Math.random() * 0.45;
-
-        petal.textContent = emoji;
-        petal.style.left = startX + '%';
-        petal.style.fontSize = size + 'px';
-        petal.style.animationDuration = fallDuration + 's, ' + (fallDuration * 0.5) + 's';
-        petal.style.animationDelay = delay + 's, ' + delay + 's';
-        petal.style.setProperty('--sway-x', swayAmount + 'px');
-        petal.style.setProperty('--rotate-end', rotationSpeed + 'deg');
-        petal.style.opacity = opacity;
-        petal.style.filter = 'drop-shadow(0 2px 4px rgba(255, 200, 220, 0.5))';
-
-        layer.appendChild(petal);
-      }
-    })();
-
-    /* =========================================================
-       ✨ 漂浮的阳光光点（bokeh）
-       ========================================================= */
-    (function initSparkles() {
-      const layer = document.getElementById('sparkle-layer');
-      if (!layer) return;
-
-      const SPARKLE_COUNT = 18;
-      for (let i = 0; i < SPARKLE_COUNT; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'sparkle';
-
-        const startX = Math.random() * 100;
-        const startY = Math.random() * 100;
-        const size = 4 + Math.random() * 14;
-        const duration = 3 + Math.random() * 5;
-        const delay = Math.random() * -8;
-
-        sparkle.style.left = startX + '%';
-        sparkle.style.top = startY + '%';
-        sparkle.style.width = size + 'px';
-        sparkle.style.height = size + 'px';
-        sparkle.style.animationDuration = duration + 's';
-        sparkle.style.animationDelay = delay + 's';
-
-        layer.appendChild(sparkle);
-      }
-    })();
-  </script>
+  <!-- ============================================================
+       🎬 粒子动画脚本
+       ============================================================ -->
+  <script src="home-particles.js"></script>
 
 </body>
 </html>

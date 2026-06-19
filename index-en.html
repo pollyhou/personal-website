@@ -9,61 +9,71 @@
 </head>
 <body class="body-home">
 
-  <!-- ============ 🌳 Watercolor Forest Background ============ -->
-  <div class="forest-scene">
-
-    <div class="forest-sky"></div>
-    <div class="forest-trees forest-trees-far"></div>
-    <div class="forest-trees forest-trees-mid"></div>
-
-    <!-- ☀️ Sun rays (Tyndall effect) -->
-    <div class="sun-rays">
-      <div class="sun-ray sun-ray-1"></div>
-      <div class="sun-ray sun-ray-2"></div>
-      <div class="sun-ray sun-ray-3"></div>
-      <div class="sun-ray sun-ray-4"></div>
-      <div class="sun-ray sun-ray-5"></div>
-    </div>
-
-    <div class="forest-grass"></div>
-    <div class="petals-layer" id="petals-layer"></div>
-    <div class="sparkle-layer" id="sparkle-layer"></div>
+  <!-- ============================================================
+       🌳 Layer 0: Static illustration background
+       (Save your illustration as home-bg.jpg in project root)
+       ============================================================ -->
+  <div class="bg-layer">
+    <div class="bg-img"></div>
+    <div class="bg-vignette"></div>
   </div>
 
-  <!-- ============ 🦊🐻🐑 Forest friends ============ -->
-  <div class="forest-critters">
-    <div class="critter critter-fox">
-      <div class="critter-body">🦊</div>
-      <div class="critter-shadow"></div>
-    </div>
-    <div class="critter critter-bear">
-      <div class="critter-body">🐻</div>
-      <div class="critter-shadow"></div>
-    </div>
-    <div class="critter critter-sheep">
-      <div class="critter-body">🐑</div>
-      <div class="critter-shadow"></div>
-    </div>
-    <div class="critter critter-butterfly">
-      <div class="critter-body">🦋</div>
-    </div>
+  <!-- ============================================================
+       ☀️ Layer 1: Golden Tyndall light beams (CSS)
+       ============================================================ -->
+  <div class="rays-layer">
+    <div class="ray ray-1"></div>
+    <div class="ray ray-2"></div>
+    <div class="ray ray-3"></div>
+    <div class="ray ray-4"></div>
+    <div class="ray ray-5"></div>
+    <div class="ray ray-6"></div>
   </div>
 
+  <!-- ============================================================
+       ✨ Layer 2: Soft bokeh light spots (CSS)
+       ============================================================ -->
+  <div class="bokeh-layer">
+    <div class="bokeh bokeh-1"></div>
+    <div class="bokeh bokeh-2"></div>
+    <div class="bokeh bokeh-3"></div>
+    <div class="bokeh bokeh-4"></div>
+    <div class="bokeh bokeh-5"></div>
+    <div class="bokeh bokeh-6"></div>
+    <div class="bokeh bokeh-7"></div>
+  </div>
+
+  <!-- ============================================================
+       🌸 Layer 3: Canvas petal particles (JS)
+       ============================================================ -->
+  <canvas id="petals-canvas" class="petals-canvas"></canvas>
+
+  <!-- ============================================================
+       🌙 Layer 4: Fullscreen brightness breathing (CSS)
+       ============================================================ -->
+  <div class="breath-layer"></div>
+
+  <!-- ============================================================
+       🧭 Nav bar
+       ============================================================ -->
   <nav class="nav nav-transparent">
     <a class="nav-brand nav-brand-white" href="index-en.html">Polly</a>
     <div class="nav-menu">
       <a class="nav-link nav-link-white active" href="index-en.html">Home</a>
       <a class="nav-link nav-link-white" href="blog-en.html">Blog</a>
       <a class="nav-link nav-link-white" href="portfolio-en.html">Portfolio</a>
-      <a class="nav-link nav-link-white" href="gallery-en.html">Time Postcards</a>
+      <a class="nav-link nav-link-white" href="gallery-en.html">Postcards</a>
       <a class="nav-link nav-link-white" href="me-en.html">About</a>
       <a class="lang-switch lang-switch-white" href="index.html">中 🇨🇳</a>
     </div>
   </nav>
 
+  <!-- ============================================================
+       🌟 Content: Avatar + Title + Entry Cards
+       ============================================================ -->
   <div class="container container-home">
-
     <section class="home-hero">
+
       <div class="home-avatar-wrap">
         <div class="home-avatar-bg"></div>
         <div class="home-avatar-emoji">🌸</div>
@@ -72,7 +82,6 @@
       <h1 class="home-title home-title-white">
         <span>Hi, I'm</span>
         <span class="home-title-name">Polly</span>
-        <span class="home-title-wave">👋</span>
       </h1>
 
       <p class="home-subtitle home-subtitle-white">
@@ -83,130 +92,54 @@
 
         <a href="blog-en.html" class="entry-card entry-blog">
           <div class="entry-icon">
-            <span class="entry-icon-main">📝</span>
-            <span class="entry-icon-bg">📖</span>
+            <span class="entry-icon-main">📖</span>
           </div>
           <div class="entry-text">
             <h3>Blog</h3>
             <p>Notes on inspiration & everyday life</p>
           </div>
-          <div class="entry-arrow">→</div>
         </a>
 
         <a href="portfolio-en.html" class="entry-card entry-portfolio">
           <div class="entry-icon">
-            <span class="entry-icon-main">🤖</span>
-            <span class="entry-icon-bg">💫</span>
+            <span class="entry-icon-main">🎨</span>
           </div>
           <div class="entry-text">
             <h3>Portfolio</h3>
             <p>AI products & idea experiments</p>
           </div>
-          <div class="entry-arrow">→</div>
         </a>
 
         <a href="gallery-en.html" class="entry-card entry-gallery">
           <div class="entry-icon">
             <span class="entry-icon-main">📮</span>
-            <span class="entry-icon-bg">📷</span>
           </div>
           <div class="entry-text">
-            <h3>Time Postcards</h3>
+            <h3>Postcards</h3>
             <p>Moments frozen by the camera</p>
           </div>
-          <div class="entry-arrow">→</div>
         </a>
 
         <a href="me-en.html" class="entry-card entry-me">
           <div class="entry-icon">
             <span class="entry-icon-main">🌿</span>
-            <span class="entry-icon-bg">🌱</span>
           </div>
           <div class="entry-text">
             <h3>About</h3>
             <p>A little about my story</p>
           </div>
-          <div class="entry-arrow">→</div>
         </a>
 
       </div>
 
-      <div class="home-interaction-hint home-hint-soft">
-        <span class="hint-dot">🌳</span>
-        <span>Each card is a door to a small world</span>
-        <span class="hint-dot">🌳</span>
-      </div>
     </section>
-
   </div>
 
   <footer class="footer footer-home">
     <p>© 2025 Polly · Made with <span class="footer-heart">♥</span></p>
   </footer>
 
-  <script>
-    /* ========== 🌸 Falling petals ========== */
-    (function initPetals() {
-      const layer = document.getElementById('petals-layer');
-      if (!layer) return;
-
-      const PETAL_COUNT = 35;
-      const petalEmojis = ['🌸', '🌸', '🌺', '🌷', '🌼', '🍃', '✨', '🌸'];
-
-      for (let i = 0; i < PETAL_COUNT; i++) {
-        const petal = document.createElement('div');
-        petal.className = 'petal';
-
-        const startX = Math.random() * 100;
-        const fallDuration = 8 + Math.random() * 10;
-        const delay = Math.random() * -20;
-        const swayAmount = 30 + Math.random() * 60;
-        const size = 14 + Math.random() * 22;
-        const rotationSpeed = (Math.random() - 0.5) * 720;
-        const emoji = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
-        const opacity = 0.55 + Math.random() * 0.45;
-
-        petal.textContent = emoji;
-        petal.style.left = startX + '%';
-        petal.style.fontSize = size + 'px';
-        petal.style.animationDuration = fallDuration + 's, ' + (fallDuration * 0.5) + 's';
-        petal.style.animationDelay = delay + 's, ' + delay + 's';
-        petal.style.setProperty('--sway-x', swayAmount + 'px');
-        petal.style.setProperty('--rotate-end', rotationSpeed + 'deg');
-        petal.style.opacity = opacity;
-        petal.style.filter = 'drop-shadow(0 2px 4px rgba(255, 200, 220, 0.5))';
-
-        layer.appendChild(petal);
-      }
-    })();
-
-    /* ========== ✨ Floating sun sparkles (bokeh) ========== */
-    (function initSparkles() {
-      const layer = document.getElementById('sparkle-layer');
-      if (!layer) return;
-
-      const SPARKLE_COUNT = 18;
-      for (let i = 0; i < SPARKLE_COUNT; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'sparkle';
-
-        const startX = Math.random() * 100;
-        const startY = Math.random() * 100;
-        const size = 4 + Math.random() * 14;
-        const duration = 3 + Math.random() * 5;
-        const delay = Math.random() * -8;
-
-        sparkle.style.left = startX + '%';
-        sparkle.style.top = startY + '%';
-        sparkle.style.width = size + 'px';
-        sparkle.style.height = size + 'px';
-        sparkle.style.animationDuration = duration + 's';
-        sparkle.style.animationDelay = delay + 's';
-
-        layer.appendChild(sparkle);
-      }
-    })();
-  </script>
+  <script src="home-particles.js"></script>
 
 </body>
 </html>
