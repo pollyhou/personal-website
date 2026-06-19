@@ -47,7 +47,7 @@
   position: absolute;
   inset: 0;
   background-image:
-    url("home-bg.jpg"),
+    url("home-bg.png"),
     /* ------ 水彩风降级渐变 (当图片缺失时显示) ------ */
     /* 顶部樱花粉水彩斑 */
     radial-gradient(ellipse 45% 25% at 20% 5%, rgba(255, 210, 225, 0.8) 0%, transparent 70%),
