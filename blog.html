@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog · 侯小雯</title>
+  <title>日志 · 侯小雯</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/marked.min.js"></script>
 </head>
@@ -16,10 +16,10 @@
     <a class="nav-brand" href="index.html">侯小雯</a>
     <div class="nav-menu">
       <a class="nav-link" href="index.html">首页</a>
-      <a class="nav-link active" href="blog.html">Blog</a>
+      <a class="nav-link active" href="blog.html">日志</a>
       <a class="nav-link" href="gallery.html">时光明信片</a>
       <a class="nav-link" href="admin.html">管理</a>
-      <a class="nav-link" href="me.html">Me</a>
+      <a class="nav-link" href="me.html">我</a>
     </div>
   </nav>
 
@@ -27,7 +27,7 @@
 
     <section id="list-view">
       <div class="page-header">
-        <h1 class="page-title">📔 Blog</h1>
+        <h1 class="page-title">📔 日志</h1>
         <p class="page-subtitle">记录一些灵感与日常</p>
       </div>
       <div class="content-section">
@@ -91,7 +91,7 @@
         } catch (e) {
           document.getElementById("article-content").textContent = post.content || "";
         }
-        document.title = (post.title || "Blog") + " · 侯小雯";
+        document.title = (post.title || "日志") + " · 侯小雯";
       } catch (e) {
         document.getElementById("article-title").textContent = "哎呀，这篇文章不见了";
         document.getElementById("article-content").innerHTML = "<p>可能已删除，或数据库尚未初始化。</p>";
@@ -102,7 +102,7 @@
     async function showList() {
       listView.style.display = "block";
       articleView.style.display = "none";
-      document.title = "Blog · 侯小雯";
+      document.title = "日志 · 侯小雯";
       postList.innerHTML = '<p style="padding:40px 0;text-align:center;color:var(--ink-soft);">正在从数据库拉取文章… 🌱</p>';
 
       try {
