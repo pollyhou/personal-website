@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理后台 · 侯小雯 Wonderland</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-brand" href="index.html">侯小雯 <span>·</span> Wonderland</a>
+    <div class="nav-menu">
+      <a class="nav-link" href="index.html">首页</a>
+      <a class="nav-link" href="blog.html">Blog</a>
+      <a class="nav-link" href="gallery.html">画册</a>
+      <a class="nav-link active" href="admin.html">管理</a>
+      <a class="nav-link" href="me.html">Me</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- ====== 未登录状态：登录表单 ====== -->
+    <section id="login-view">
+      <div class="page-header">
+        <h1 class="page-title">🔐 管理后台</h1>
+        <p class="page-subtitle">输入管理员密码以继续</p>
+      </div>
+      <div class="content-section" style="max-width:460px;">
+        <div class="form-row">
+          <label>管理员密码</label>
+          <input type="password" id="admin-password" placeholder="请输入密码" />
+        </div>
+        <button id="btn-login" class="btn btn-primary">登录</button>
+        <p id="login-error" style="color:#c0392b;margin-top:12px;display:none;"></p>
+        <p style="margin-top:20px;font-size:13px;color:var(--ink-soft);line-height:1.8;">
+          💡 如果密码不正确，请在 Vercel 项目中设置环境变量
+          <code style="background:var(--paper);padding:2px 6px;border-radius:4px;">ADMIN_PASSWORD</code>，
+          然后重新部署一次。
+        </p>
+      </div>
+    </section>
+
+    <!-- ====== 已登录状态：管理面板 ====== -->
+    <section id="admin-view" style="display:none;">
+      <div class="page-header">
+        <h1 class="page-title">✨ 管理面板</h1>
+        <p class="page-subtitle">在这里管理你的博客文章与画册照片</p>
+        <button id="btn-logout" class="btn btn-ghost" style="margin-top:12px;">退出登录</button>
+      </div>
+
+      <!-- ====== 标签切换 ====== -->
+      <div class="tabs">
+        <div class="tab active" data-tab="posts">📝 博客文章</div>
+        <div class="tab" data-tab="photos">🖼️ 照片元数据</div>
+      </div>
+
+      <!-- ====== 博客管理 ====== -->
+      <div class="content-section" id="tab-posts">
+        <div class="section-heading">
+          <h2>📝 文章列表</h2>
+          <button id="btn-new-post" class="btn btn-primary">+ 新增文章</button>
+        </div>
+        <div id="post-list" class="admin-list">
+          <p class="loading-tip">正在加载…</p>
+        </div>
+      </div>
+
+      <!-- ====== 照片元数据管理 ====== -->
+      <div class="content-section" id="tab-photos" style="display:none;">
+        <div class="section-heading">
+          <h2>🖼️ 照片元数据</h2>
+          <button id="btn-new-photo" class="btn btn-primary">+ 新增照片</button>
+        </div>
+        <p style="margin-bottom:20px;padding:14px 18px;background:#fff8e1;border-left:4px solid #f5b041;border-radius:8px;line-height:1.8;font-size:14px;">
+          💡 这里只管理照片的「标题、日期、描述」等文字信息。照片文件本身需要你手动放到
+          <code style="background:#fff;padding:1px 6px;border-radius:4px;">photos/</code> 目录然后 git push
+          到仓库，Vercel 会自动部署（文件名要与下面 src 一致，例如 <code style="background:#fff;padding:1px 6px;border-radius:4px;">2025-06-18_001.jpg</code>）。
+        </p>
+        <div id="photo-list" class="admin-list">
+          <p class="loading-tip">正在加载…</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== 文章编辑弹窗 ====== -->
+  <div id="post-editor" class="modal" style="display:none;">
+    <div class="modal-inner">
+      <div class="modal-header">
+        <h3 id="post-editor-title">新增文章</h3>
+        <button class="modal-close" data-close="post-editor">×</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="post-id" />
+        <div class="form-row">
+          <label>标题</label>
+          <input type="text" id="post-title" placeholder="例如：在不确定的时代让自己更灵活" />
+        </div>
+        <div class="form-row">
+          <label>Slug（可选，留空则自动生成）</label>
+          <input type="text" id="post-slug" placeholder="例如：stay-flexible" />
+        </div>
+        <div class="form-row">
+          <label>封面 emoji（可选）</label>
+          <input type="text" id="post-cover" placeholder="📝 或 🌿" maxlength="4" />
+        </div>
+        <div class="form-row">
+          <label>日期（可选，留空则用今天）</label>
+          <input type="date" id="post-date" />
+        </div>
+        <div class="form-row">
+          <label>标签（用英文逗号分隔，可选）</label>
+          <input type="text" id="post-tags" placeholder="随笔,思考,生活" />
+        </div>
+        <div class="form-row">
+          <label>摘要（可选）</label>
+          <textarea id="post-excerpt" rows="2" placeholder="一句话描述这篇文章"></textarea>
+        </div>
+        <div class="form-row">
+          <label>正文（支持 Markdown）</label>
+          <textarea id="post-content" rows="14" placeholder="在这里写你的文章..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="post-editor">取消</button>
+        <button id="btn-save-post" class="btn btn-primary">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 照片编辑弹窗 ====== -->
+  <div id="photo-editor" class="modal" style="display:none;">
+    <div class="modal-inner">
+      <div class="modal-header">
+        <h3 id="photo-editor-title">新增照片元数据</h3>
+        <button class="modal-close" data-close="photo-editor">×</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="photo-id" />
+        <div class="form-row">
+          <label>文件名（src，必填，对应 photos/ 目录里的文件）</label>
+          <input type="text" id="photo-src" placeholder="例如：2025-06-18_001.jpg" />
+        </div>
+        <div class="form-row">
+          <label>标题</label>
+          <input type="text" id="photo-title" placeholder="例如：夏日午后" />
+        </div>
+        <div class="form-row">
+          <label>日期（YYYY-MM-DD，用于分组显示）</label>
+          <input type="date" id="photo-date" />
+        </div>
+        <div class="form-row">
+          <label>地点（可选）</label>
+          <input type="text" id="photo-location" placeholder="例如：杭州 / 家里的阳台" />
+        </div>
+        <div class="form-row">
+          <label>描述（可选）</label>
+          <textarea id="photo-caption" rows="3" placeholder="这张照片背后的故事..."></textarea>
+        </div>
+        <div class="form-row">
+          <label>分组（可选，例如 "2025 夏"）</label>
+          <input type="text" id="photo-group" placeholder="例如：2025-夏" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-close="photo-editor">取消</button>
+        <button id="btn-save-photo" class="btn btn-primary">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 提示浮层 ====== -->
+  <div id="toast" class="toast" style="display:none;"></div>
+
+  <footer class="footer">
+    <p>© 2025 侯小雯 · Made with ♥ in Wonderland</p>
+  </footer>
+
+  <script>
+    // =====================================================
+    //  管理后台的核心逻辑（登录 + 文章 CRUD + 照片 CRUD）
+    // =====================================================
+    const TOKEN_KEY = "houxiaowen_admin_token";
+
+    // ---------- 工具函数 ----------
+    function $(sel) { return document.querySelector(sel); }
+    function $$(sel) { return Array.from(document.querySelectorAll(sel)); }
+
+    function showToast(msg, type) {
+      const t = $("#toast");
+      t.textContent = msg;
+      t.style.display = "block";
+      t.style.background = type === "error" ? "#c0392b" : type === "success" ? "#27ae60" : "#2980b9";
+      setTimeout(() => t.style.display = "none", 3000);
+    }
+
+    function authHeaders() {
+      const token = localStorage.getItem(TOKEN_KEY) || "";
+      return {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token,
+      };
+    }
+
+    function isLoggedIn() { return !!localStorage.getItem(TOKEN_KEY); }
+
+    // ---------- 登录 / 登出 ----------
+    async function tryLogin() {
+      const pw = $("#admin-password").value.trim();
+      if (!pw) {
+        $("#login-error").textContent = "请输入密码";
+        $("#login-error").style.display = "block";
+        return;
+      }
+      $("#login-error").style.display = "none";
+
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password: pw }),
+        });
+        const data = await res.json();
+        if (res.ok && data.token) {
+          localStorage.setItem(TOKEN_KEY, data.token);
+          showToast("登录成功", "success");
+          renderApp();
+        } else {
+          $("#login-error").textContent = data.error || "登录失败";
+          $("#login-error").style.display = "block";
+        }
+      } catch (e) {
+        $("#login-error").textContent = "网络错误：" + e.message;
+        $("#login-error").style.display = "block";
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem(TOKEN_KEY);
+      renderApp();
+    }
+
+    // ---------- 渲染主逻辑 ----------
+    function renderApp() {
+      if (isLoggedIn()) {
+        $("#login-view").style.display = "none";
+        $("#admin-view").style.display = "block";
+        loadPosts();
+        loadPhotos();
+      } else {
+        $("#login-view").style.display = "block";
+        $("#admin-view").style.display = "none";
+      }
+    }
+
+    // ---------- Tab 切换 ----------
+    $$(".tab").forEach((t) => {
+      t.addEventListener("click", () => {
+        $$(".tab").forEach((x) => x.classList.remove("active"));
+        t.classList.add("active");
+        const name = t.dataset.tab;
+        $("#tab-posts").style.display = name === "posts" ? "block" : "none";
+        $("#tab-photos").style.display = name === "photos" ? "block" : "none";
+      });
+    });
+
+    // ---------- 文章 CRUD ----------
+    async function loadPosts() {
+      const list = $("#post-list");
+      list.innerHTML = '<p class="loading-tip">正在加载…</p>';
+      try {
+        const res = await fetch("/api/posts");
+        const data = await res.json();
+        const posts = data.posts || [];
+        if (posts.length === 0) {
+          list.innerHTML = '<p class="empty-tip">还没有文章，点右上角「+ 新增文章」开始吧 ✍️</p>';
+          return;
+        }
+        list.innerHTML = posts.map((p) => `
+          <div class="admin-card">
+            <div class="admin-card-main">
+              <div class="admin-card-title"><span style="margin-right:8px;">${p.cover || "📝"}</span>${escapeHtml(p.title)}</div>
+              <div class="admin-card-meta">
+                ${p.date ? `📅 ${p.date}` : ""}
+                ${p.readTime ? ` · ⏱️ ${p.readTime}` : ""}
+                ${p.tags && p.tags.length ? ` · 🏷️ ${p.tags.join(", ")}` : ""}
+              </div>
+              ${p.excerpt ? `<div class="admin-card-excerpt">${escapeHtml(p.excerpt)}</div>` : ""}
+            </div>
+            <div class="admin-card-actions">
+              <button class="btn btn-ghost" onclick="openPostEditor('${p._id}')">编辑</button>
+              <button class="btn btn-danger" onclick="deletePost('${p._id}')">删除</button>
+            </div>
+          </div>
+        `).join("");
+      } catch (e) {
+        list.innerHTML = '<p class="empty-tip" style="color:#c0392b;">加载失败：' + e.message + '</p>';
+      }
+    }
+
+    function openPostEditor(id) {
+      const isEdit = !!id;
+      $("#post-editor-title").textContent = isEdit ? "编辑文章" : "新增文章";
+      $("#post-id").value = id || "";
+      $("#post-title").value = "";
+      $("#post-slug").value = "";
+      $("#post-cover").value = "📝";
+      $("#post-date").value = "";
+      $("#post-tags").value = "";
+      $("#post-excerpt").value = "";
+      $("#post-content").value = "";
+
+      if (isEdit) {
+        // 从列表里找这篇文章填充
+        fetch(`/api/posts?slug=dummy`).then(async () => {
+          // 用文章 API 直接读（这里我们没有通过 _id 查的 API，所以走另一个路径）
+          // 简化做法：重新调用一次列表并在前端筛选
+          const res = await fetch("/api/posts");
+          const data = await res.json();
+          const post = (data.posts || []).find((p) => p._id === id);
+          if (post) {
+            $("#post-title").value = post.title || "";
+            $("#post-slug").value = post.slug || "";
+            $("#post-cover").value = post.cover || "📝";
+            $("#post-date").value = post.date || "";
+            $("#post-tags").value = (post.tags || []).join(",");
+            $("#post-excerpt").value = post.excerpt || "";
+            // 注：列表 API 不带 content，所以编辑时需要额外请求
+            fetch(`/api/posts?slug=${encodeURIComponent(post.slug)}`).then(async (r2) => {
+              const d2 = await r2.json();
+              $("#post-content").value = d2.content || "";
+            });
+          }
+        });
+      }
+      $("#post-editor").style.display = "flex";
+    }
+
+    async function savePost() {
+      const _id = $("#post-id").value;
+      const title = $("#post-title").value.trim();
+      const content = $("#post-content").value.trim();
+      if (!title || !content) { showToast("标题和正文必填", "error"); return; }
+
+      const payload = {
+        title,
+        slug: $("#post-slug").value.trim(),
+        cover: $("#post-cover").value.trim() || "📝",
+        date: $("#post-date").value,
+        tags: $("#post-tags").value.split(",").map((s) => s.trim()).filter(Boolean),
+        excerpt: $("#post-excerpt").value.trim(),
+        content,
+      };
+      if (_id) payload._id = _id;
+
+      try {
+        const res = await fetch("/api/posts", {
+          method: _id ? "PUT" : "POST",
+          headers: authHeaders(),
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showToast(data.message || "保存成功", "success");
+          closeModal("post-editor");
+          loadPosts();
+        } else {
+          showToast(data.error || "保存失败", "error");
+        }
+      } catch (e) {
+        showToast("网络错误：" + e.message, "error");
+      }
+    }
+
+    async function deletePost(_id) {
+      if (!confirm("确定删除这篇文章吗？删除后无法恢复。")) return;
+      try {
+        const res = await fetch("/api/posts", {
+          method: "DELETE",
+          headers: authHeaders(),
+          body: JSON.stringify({ _id }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showToast("删除成功", "success");
+          loadPosts();
+        } else {
+          showToast(data.error || "删除失败", "error");
+        }
+      } catch (e) {
+        showToast("网络错误：" + e.message, "error");
+      }
+    }
+
+    // ---------- 照片元数据 CRUD ----------
+    async function loadPhotos() {
+      const list = $("#photo-list");
+      list.innerHTML = '<p class="loading-tip">正在加载…</p>';
+      try {
+        const res = await fetch("/api/photos?limit=500");
+        const data = await res.json();
+        const photos = data.photos || [];
+        if (photos.length === 0) {
+          list.innerHTML = '<p class="empty-tip">还没有照片元数据。先把 .jpg 文件放到 photos/ 目录并 git push，然后在这里为每张照片写标题、日期等。</p>';
+          return;
+        }
+        list.innerHTML = photos.map((p) => `
+          <div class="admin-card admin-card-photo">
+            <div class="admin-photo-thumb">
+              <img src="photos/${escapeHtml(p.src)}" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div style="display:none; width:100%; height:100%; align-items:center; justify-content:center; background:#eee; color:#888; font-size:32px;">🖼️</div>
+            </div>
+            <div class="admin-card-main">
+              <div class="admin-card-title">${escapeHtml(p.title || p.src)}</div>
+              <div class="admin-card-meta">
+                📄 ${escapeHtml(p.src)}
+                ${p.date ? ` · 📅 ${p.date}` : ""}
+                ${p.location ? ` · 📍 ${escapeHtml(p.location)}` : ""}
+              </div>
+              ${p.caption ? `<div class="admin-card-excerpt">${escapeHtml(p.caption)}</div>` : ""}
+            </div>
+            <div class="admin-card-actions">
+              <button class="btn btn-ghost" onclick="openPhotoEditor('${p._id}','${escapeHtml(p.src)}','${escapeHtml(p.title||'')}','${escapeHtml(p.date||'')}','${escapeHtml(p.location||'')}','${escapeHtml(p.caption||'').replace(/'/g,"\\'")}','${escapeHtml(p.group||'')}')">编辑</button>
+              <button class="btn btn-danger" onclick="deletePhoto('${p._id}')">删除</button>
+            </div>
+          </div>
+        `).join("");
+      } catch (e) {
+        // 如果 API 失败（可能是没初始化数据库），给一个友好提示
+        list.innerHTML =
+          '<p class="empty-tip" style="color:#c0392b;">加载失败：' + e.message +
+          '<br/><br/>如果这是第一次使用，请先访问 <a href="/api/seed" target="_blank">/api/seed</a> 初始化数据库。</p>';
+      }
+    }
+
+    function openPhotoEditor(_id, src, title, date, location, caption, group) {
+      $("#photo-editor-title").textContent = _id ? "编辑照片元数据" : "新增照片元数据";
+      $("#photo-id").value = _id || "";
+      $("#photo-src").value = src || "";
+      $("#photo-title").value = title || "";
+      $("#photo-date").value = date || "";
+      $("#photo-location").value = location || "";
+      $("#photo-caption").value = caption || "";
+      $("#photo-group").value = group || "";
+      $("#photo-editor").style.display = "flex";
+    }
+
+    async function savePhoto() {
+      const _id = $("#photo-id").value;
+      const src = $("#photo-src").value.trim();
+      if (!src) { showToast("src 不能为空（即文件名）", "error"); return; }
+
+      const payload = {
+        src,
+        title: $("#photo-title").value.trim(),
+        date: $("#photo-date").value,
+        location: $("#photo-location").value.trim(),
+        caption: $("#photo-caption").value.trim(),
+        group: $("#photo-group").value.trim(),
+      };
+      if (_id) payload._id = _id;
+
+      try {
+        const res = await fetch("/api/photos", {
+          method: _id ? "PUT" : "POST",
+          headers: authHeaders(),
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showToast(data.message || "保存成功", "success");
+          closeModal("photo-editor");
+          loadPhotos();
+        } else {
+          showToast(data.error || "保存失败", "error");
+        }
+      } catch (e) {
+        showToast("网络错误：" + e.message, "error");
+      }
+    }
+
+    async function deletePhoto(_id) {
+      if (!confirm("确定删除这张照片的元数据吗？（不会删除照片文件）")) return;
+      try {
+        const res = await fetch("/api/photos", {
+          method: "DELETE",
+          headers: authHeaders(),
+          body: JSON.stringify({ _id }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showToast("删除成功", "success");
+          loadPhotos();
+        } else {
+          showToast(data.error || "删除失败", "error");
+        }
+      } catch (e) {
+        showToast("网络错误：" + e.message, "error");
+      }
+    }
+
+    function closeModal(name) {
+      $("#" + name).style.display = "none";
+    }
+
+    function escapeHtml(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    // ---------- 事件绑定 ----------
+    $("#btn-login").addEventListener("click", tryLogin);
+    $("#admin-password").addEventListener("keydown", (e) => { if (e.key === "Enter") tryLogin(); });
+    $("#btn-logout").addEventListener("click", logout);
+
+    $("#btn-new-post").addEventListener("click", () => openPostEditor(""));
+    $("#btn-save-post").addEventListener("click", savePost);
+
+    $("#btn-new-photo").addEventListener("click", () => openPhotoEditor("", "", "", "", "", "", ""));
+    $("#btn-save-photo").addEventListener("click", savePhoto);
+
+    $$("[data-close]").forEach((btn) => {
+      btn.addEventListener("click", () => closeModal(btn.dataset.close));
+    });
+
+    // 点击遮罩关闭
+    $$(".modal").forEach((m) => {
+      m.addEventListener("click", (e) => {
+        if (e.target === m) m.style.display = "none";
+      });
+    });
+
+    // 暴露给 HTML 内联调用
+    window.openPostEditor = openPostEditor;
+    window.deletePost = deletePost;
+    window.openPhotoEditor = openPhotoEditor;
+    window.deletePhoto = deletePhoto;
+
+    // 首次渲染
+    renderApp();
+  </script>
+</body>
+</html>

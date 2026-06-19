@@ -3,159 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog · 侯小雯</title>
+  <title>Blog · 侯小雯 Wonderland</title>
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- ===== 📝 Markdown 渲染引擎（从 CDN 加载 marked.js） ===== -->
   <script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/common.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css" />
 </head>
 <body>
-  <!-- 🏡 森林农场装饰元素 -->
-  <!-- ☁️ 云朵 -->
   <div class="cloud cloud-1"></div>
   <div class="cloud cloud-2"></div>
   <div class="cloud cloud-3"></div>
-
-  <!-- 🦋 蝴蝶 & 蜜蜂 -->
-  <div class="butterfly butterfly-1">🦋</div>
-  <div class="butterfly butterfly-2">🐝</div>
-
-  <!-- ✨ 星星闪光 -->
-  <div class="star star-1">✦</div>
-  <div class="star star-2">✧</div>
-  <div class="star star-3">✦</div>
-
-  <!-- 🌲 树木 -->
-  <div class="forest-decor tree-1">🌲</div>
-  <div class="forest-decor tree-2">🌳</div>
-  <div class="forest-decor tree-3">🌲</div>
-  <div class="forest-decor tree-4">🌳</div>
-
-  <!-- 🍄 蘑菇 -->
-  <div class="forest-decor mushroom-1">🍄</div>
-  <div class="forest-decor mushroom-2">🍄</div>
-
-  <!-- 🌼 花朵 -->
-  <div class="forest-decor flower-1">🌼</div>
-  <div class="forest-decor flower-2">🌸</div>
-  <div class="forest-decor flower-3">🌺</div>
-
-  <!-- 🐰 农场动物 -->
-  <div class="rabbit">🐰</div>
-  <div class="bird">🐦</div>
 
   <nav class="nav">
     <a class="nav-brand" href="index.html">侯小雯 <span>·</span> Wonderland</a>
     <div class="nav-menu">
       <a class="nav-link" href="index.html">首页</a>
       <a class="nav-link active" href="blog.html">Blog</a>
-      <a class="nav-link" href="portfolio.html">Portfolio</a>
       <a class="nav-link" href="gallery.html">画册</a>
+      <a class="nav-link" href="admin.html">管理</a>
       <a class="nav-link" href="me.html">Me</a>
-      <a class="lang-switch" href="blog-en.html">EN 🇬🇧</a>
     </div>
   </nav>
 
   <div class="container">
 
-    <!-- ============ 📚 视图一：文章列表 ============ -->
     <section id="list-view">
       <div class="page-header">
         <h1 class="page-title">📔 Blog</h1>
-        <p class="page-subtitle">Obsidian · Git · 自动同步</p>
-        <p class="page-quote">"把想法写下来，是和自己对话的开始。"</p>
+        <p class="page-subtitle">记录一些灵感与日常</p>
       </div>
-
       <div class="content-section">
-
-        <!-- 加载中 -->
-        <div id="loading-state" class="blog-state" style="display:none;padding:40px;text-align:center;color:var(--ink-soft)">
-          <div style="font-size:42px;margin-bottom:16px">📥</div>
-          <p>正在从 GitHub 仓库拉取你的 Obsidian 笔记…</p>
-        </div>
-
-        <!-- 空状态（还没配置 / 还没有文章） -->
-        <div id="empty-state" class="blog-state" style="padding:40px;text-align:center">
-          <div style="font-size:42px;margin-bottom:16px">🌱</div>
-          <h3 style="margin-bottom:16px;color:var(--ink)">准备开始你的写作之旅</h3>
-          <p style="color:var(--ink-soft);margin-bottom:24px;line-height:1.9">
-            还没有配置 GitHub 仓库信息。下面是一次性设置步骤：
-          </p>
-          <div class="setup-guide" style="text-align:left;max-width:640px;margin:0 auto;background:var(--bg);padding:24px 28px;border-radius:16px;border:1px dashed var(--line)">
-            <p><strong>第 1 步</strong>：打开 <code style="background:var(--paper);padding:2px 8px;border-radius:4px">blog.js</code></p>
-            <p><strong>第 2 步</strong>：修改顶部的 <code style="background:var(--paper);padding:2px 8px;border-radius:4px">GITHUB_CONFIG</code>：</p>
-            <pre style="background:var(--paper);padding:14px 18px;border-radius:10px;border:1px solid var(--line);font-size:13px;line-height:1.7;overflow-x:auto">
-const GITHUB_CONFIG = {
-  owner: "你的-GitHub-用户名",
-  repo: "你的-Obsidian-仓库名",
-  branch: "main",
-  contentPath: "blog"   // 你的文章在仓库中哪个文件夹
-};</pre>
-            <p><strong>第 3 步</strong>：确认仓库是 <strong>Public</strong>（公开），里面有 Markdown 文件。</p>
-            <p><strong>第 4 步</strong>：刷新此页面即可看到你的文章！</p>
-            <p style="margin-top:20px;padding-top:20px;border-top:1px dashed var(--line);color:var(--ink-soft);font-size:14px">
-              💡 文章的标题会从文件名（如 <code>2025-06-15-我的第一篇.md</code>）或 Markdown 中的一级标题自动解析。
-            </p>
-          </div>
-        </div>
-
-        <!-- 出错状态 -->
-        <div id="error-state" class="blog-state" style="display:none;padding:40px;text-align:center">
-          <div style="font-size:42px;margin-bottom:16px">😿</div>
-          <h3 style="margin-bottom:12px;color:#c0392b">拉取文章时出了点小问题</h3>
-          <p class="error-detail" style="color:var(--ink-soft);line-height:1.9;max-width:500px;margin:0 auto">
-            未知错误
-          </p>
-          <p style="margin-top:20px;color:var(--ink-soft);font-size:14px">
-            请检查：<br />
-            ① 仓库是否设置为 <strong>Public</strong><br />
-            ② <code>GITHUB_CONFIG</code> 中的 owner/repo/branch/contentPath 是否正确<br />
-            ③ GitHub API 短时间内请求次数（60 次/小时），耐心等待或配置 Token
-          </p>
-        </div>
-
-        <!-- 动态渲染的文章列表容器 -->
-        <div id="article-list" class="blog-list"></div>
-
+        <div id="post-list" class="blog-list"></div>
       </div>
     </section>
 
-    <!-- ============ 📖 视图二：单篇文章 ============ -->
-    <section id="article-view" style="display:none">
+    <section id="article-view" style="display:none;">
       <div class="page-header">
-        <p style="margin-bottom:12px;font-size:14px">
-          <a id="back-to-list" href="blog.html" style="color:var(--accent)">← 返回文章列表</a>
+        <p style="margin-bottom:12px;font-size:14px;">
+          <a href="blog.html" style="color:var(--accent);">← 返回文章列表</a>
         </p>
-        <h1 id="article-title" class="page-title" style="font-size:36px">加载中…</h1>
-        <p id="article-date" class="page-subtitle" style="color:var(--accent)"></p>
+        <h1 id="article-title" class="page-title" style="font-size:36px;">加载中…</h1>
+        <p id="article-date" class="page-subtitle" style="color:var(--accent);"></p>
       </div>
-
       <div class="content-section">
-        <div id="article-loading" style="padding:40px;text-align:center;color:var(--ink-soft)">
-          <div style="font-size:42px;margin-bottom:16px">✨</div>
-          <p>正在加载文章…</p>
-        </div>
-
-        <!-- Markdown 渲染出来的文章正文 -->
         <article id="article-content" class="markdown-body"></article>
-
-        <!-- 文章末尾署名 -->
-        <div id="article-end-card" style="display:none;margin-top:40px;padding-top:24px;border-top:2px dashed var(--line);text-align:center;">
-          <p style="font-size:13px;color:var(--ink-soft);">
-            ✿&nbsp;&nbsp;感谢阅读&nbsp;&nbsp;✿
-          </p>
-          <p style="font-size:13px;color:var(--ink-soft);margin-top:8px;">
-            侯小雯 · <span style="color:var(--accent)">polly的打怪日记</span>
-          </p>
-        </div>
       </div>
     </section>
 
   </div>
 
-  <!-- 🌲 底部森林场景 -->
   <div class="scene-footer">
     <div class="grass-line">🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿</div>
     <div class="forest-ground">
@@ -164,11 +58,100 @@ const GITHUB_CONFIG = {
     <p class="forest-quote">~ 在数字世界里种一片小森林 ~</p>
   </div>
 
-  <footer class="footer">
-    <p>© 2025 侯小雯 · Made with <span class="footer-heart">♥</span> in Wonderland</p>
-  </footer>
+  <footer class="footer"><p>© 2025 侯小雯 · Made with <span class="footer-heart">♥</span> in Wonderland</p></footer>
 
-  <!-- ===== 核心逻辑：从 GitHub 拉取 Obsidian 笔记 ===== -->
-  <script src="blog.js"></script>
+  <script>
+    function escapeHtml(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    const listView = document.getElementById("list-view");
+    const articleView = document.getElementById("article-view");
+    const postList = document.getElementById("post-list");
+
+    async function showPostBySlug(slug) {
+      listView.style.display = "none";
+      articleView.style.display = "block";
+      document.getElementById("article-title").textContent = "加载中…";
+      document.getElementById("article-content").innerHTML = "";
+      try {
+        const res = await fetch("/api/posts?slug=" + encodeURIComponent(slug));
+        if (!res.ok) throw new Error("文章不存在");
+        const post = await res.json();
+        document.getElementById("article-title").textContent = post.title || "";
+        const meta = [];
+        if (post.date) meta.push("📅 " + post.date);
+        if (post.readTime) meta.push("⏱️ " + post.readTime);
+        if (post.tags && post.tags.length) meta.push("🏷️ " + post.tags.join(", "));
+        document.getElementById("article-date").textContent = meta.join(" · ");
+        try {
+          document.getElementById("article-content").innerHTML = marked.parse(post.content || "");
+        } catch (e) {
+          document.getElementById("article-content").textContent = post.content || "";
+        }
+        document.title = (post.title || "Blog") + " · 侯小雯 Wonderland";
+      } catch (e) {
+        document.getElementById("article-title").textContent = "哎呀，这篇文章不见了";
+        document.getElementById("article-content").innerHTML = "<p>可能已删除，或数据库尚未初始化。</p>";
+      }
+      window.scrollTo(0, 0);
+    }
+
+    async function showList() {
+      listView.style.display = "block";
+      articleView.style.display = "none";
+      document.title = "Blog · 侯小雯 Wonderland";
+      postList.innerHTML = '<p style="padding:40px 0;text-align:center;color:var(--ink-soft);">正在从数据库拉取文章… 🌱</p>';
+
+      try {
+        const res = await fetch("/api/posts?limit=100");
+        const data = await res.json();
+        const posts = data.posts || [];
+        if (posts.length === 0) {
+          postList.innerHTML = `
+            <div style="text-align:center;padding:50px 20px;">
+              <div style="font-size:48px;margin-bottom:16px;">🌿</div>
+              <p style="font-size:16px;color:var(--ink);">还没有文章 ✍️</p>
+              <p style="margin-top:12px;color:var(--ink-soft);font-size:14px;">
+                <a href="admin.html" style="color:var(--accent);">去管理后台</a> 写第一篇吧
+              </p>
+              <p style="margin-top:30px;color:var(--ink-soft);font-size:13px;">
+                （如果数据库还没初始化，请先访问 <code>/api/seed</code>）
+              </p>
+            </div>`;
+          return;
+        }
+        postList.innerHTML = posts.map((p) => `
+          <div class="blog-card" onclick="location.hash='#/' + encodeURIComponent('${escapeHtml(p.slug)}');" style="cursor:pointer;">
+            <div class="blog-card-title">
+              <span class="blog-card-emoji">${escapeHtml(p.cover || "📝")}</span>
+              <span>${escapeHtml(p.title)}</span>
+            </div>
+            <div class="blog-card-meta">
+              ${p.date ? "📅 " + escapeHtml(p.date) : ""}
+              ${p.readTime ? " · ⏱️ " + escapeHtml(p.readTime) : ""}
+              ${p.tags && p.tags.length ? " · 🏷️ " + p.tags.map(escapeHtml).join(", ") : ""}
+            </div>
+            ${p.excerpt ? `<div class="blog-card-excerpt">${escapeHtml(p.excerpt)}</div>` : ""}
+          </div>
+        `).join("");
+      } catch (e) {
+        postList.innerHTML =
+          '<p style="padding:40px 0;text-align:center;color:#c0392b;">加载失败：' + e.message + '</p>';
+      }
+    }
+
+    function route() {
+      const hash = location.hash || "";
+      const m = hash.match(/^#\/(.+)/);
+      if (m && m[1]) showPostBySlug(m[1]);
+      else showList();
+    }
+
+    window.addEventListener("hashchange", route);
+    route();
+  </script>
 </body>
 </html>
