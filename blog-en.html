@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog · Hou Xiaowen</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- ===== 📝 Markdown Renderer (loaded from CDN) ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/common.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css" />
+</head>
+<body>
+  <!-- 🏡 Forest Farm Decorations -->
+  <!-- ☁️ Clouds -->
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+
+  <!-- 🦋 Butterflies & Bees -->
+  <div class="butterfly butterfly-1">🦋</div>
+  <div class="butterfly butterfly-2">🐝</div>
+
+  <!-- ✨ Stars -->
+  <div class="star star-1">✦</div>
+  <div class="star star-2">✧</div>
+  <div class="star star-3">✦</div>
+
+  <!-- 🌲 Trees -->
+  <div class="forest-decor tree-1">🌲</div>
+  <div class="forest-decor tree-2">🌳</div>
+  <div class="forest-decor tree-3">🌲</div>
+  <div class="forest-decor tree-4">🌳</div>
+
+  <!-- 🍄 Mushrooms -->
+  <div class="forest-decor mushroom-1">🍄</div>
+  <div class="forest-decor mushroom-2">🍄</div>
+
+  <!-- 🌼 Flowers -->
+  <div class="forest-decor flower-1">🌼</div>
+  <div class="forest-decor flower-2">🌸</div>
+  <div class="forest-decor flower-3">🌺</div>
+
+  <!-- 🐰 Farm Animals -->
+  <div class="rabbit">🐰</div>
+  <div class="bird">🐦</div>
+
+  <nav class="nav">
+    <a class="nav-brand" href="index-en.html">Hou Xiaowen <span>·</span> Wonderland</a>
+    <div class="nav-menu">
+      <a class="nav-link" href="index-en.html">Home</a>
+      <a class="nav-link active" href="blog-en.html">Blog</a>
+      <a class="nav-link" href="portfolio-en.html">Portfolio</a>
+      <a class="nav-link" href="gallery-en.html">Gallery</a>
+      <a class="nav-link" href="me-en.html">About</a>
+      <a class="lang-switch" href="blog.html">中 🇨🇳</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- ============ 📚 View 1: Article List ============ -->
+    <section id="list-view">
+      <div class="page-header">
+        <h1 class="page-title">📔 Blog</h1>
+        <p class="page-subtitle">Obsidian · Git · Auto-sync</p>
+        <p class="page-quote">"Writing your thoughts down is the beginning of a conversation with yourself."</p>
+      </div>
+
+      <div class="content-section">
+
+        <!-- Loading -->
+        <div id="loading-state" class="blog-state" style="display:none;padding:40px;text-align:center;color:var(--ink-soft)">
+          <div style="font-size:42px;margin-bottom:16px">📥</div>
+          <p>Fetching your Obsidian notes from GitHub...</p>
+        </div>
+
+        <!-- Empty state (not configured / no articles) -->
+        <div id="empty-state" class="blog-state" style="padding:40px;text-align:center">
+          <div style="font-size:42px;margin-bottom:16px">🌱</div>
+          <h3 style="margin-bottom:16px;color:var(--ink)">Ready to Start Your Writing Journey</h3>
+          <p style="color:var(--ink-soft);margin-bottom:24px;line-height:1.9">
+            GitHub repository hasn't been configured yet. Here's a quick setup guide:
+          </p>
+          <div class="setup-guide" style="text-align:left;max-width:640px;margin:0 auto;background:var(--paper);padding:24px 28px;border-radius:16px;border:1px dashed var(--line)">
+            <p><strong>Step 1</strong>: Open <code style="background:var(--paper-warm);padding:2px 8px;border-radius:4px">blog.js</code></p>
+            <p><strong>Step 2</strong>: Edit the <code style="background:var(--paper-warm);padding:2px 8px;border-radius:4px">GITHUB_CONFIG</code> at the top:</p>
+            <pre style="background:var(--paper-warm);padding:14px 18px;border-radius:10px;border:1px solid var(--line);font-size:13px;line-height:1.7;overflow-x:auto">
+const GITHUB_CONFIG = {
+  owner: "your-GitHub-username",
+  repo: "your-Obsidian-repo-name",
+  branch: "main",
+  contentPath: "blog"   // Which folder your articles are in
+};</pre>
+            <p><strong>Step 3</strong>: Make sure the repository is <strong>Public</strong> and contains Markdown files.</p>
+            <p><strong>Step 4</strong>: Refresh this page to see your articles!</p>
+            <p style="margin-top:20px;padding-top:20px;border-top:1px dashed var(--line);color:var(--ink-soft);font-size:14px">
+              💡 Article titles are automatically parsed from filenames (e.g. <code>2025-06-15-my-first-post.md</code>) or from the first-level heading in your Markdown.
+            </p>
+          </div>
+        </div>
+
+        <!-- Error state -->
+        <div id="error-state" class="blog-state" style="display:none;padding:40px;text-align:center">
+          <div style="font-size:42px;margin-bottom:16px">😿</div>
+          <h3 style="margin-bottom:12px;color:#c0392b">Hmm, Something Went Wrong</h3>
+          <p class="error-detail" style="color:var(--ink-soft);line-height:1.9;max-width:500px;margin:0 auto">
+            Unknown error
+          </p>
+          <p style="margin-top:20px;color:var(--ink-soft);font-size:14px">
+            Please check:<br />
+            ① Is the repository set to <strong>Public</strong>?<br />
+            ② Are the owner/repo/branch/contentPath correct in <code>GITHUB_CONFIG</code>?<br />
+            ③ GitHub API has a rate limit (60 requests/hour). Wait a moment or configure a Token.
+          </p>
+        </div>
+
+        <!-- Dynamically rendered article list container -->
+        <div id="article-list" class="blog-list"></div>
+
+      </div>
+    </section>
+
+    <!-- ============ 📖 View 2: Single Article ============ -->
+    <section id="article-view" style="display:none">
+      <div class="page-header">
+        <p style="margin-bottom:12px;font-size:14px">
+          <a id="back-to-list" href="blog-en.html" style="color:var(--accent)">← Back to Articles</a>
+        </p>
+        <h1 id="article-title" class="page-title" style="font-size:36px">Loading...</h1>
+        <p id="article-date" class="page-subtitle" style="color:var(--accent)"></p>
+      </div>
+
+      <div class="content-section">
+        <div id="article-loading" style="padding:40px;text-align:center;color:var(--ink-soft)">
+          <div style="font-size:42px;margin-bottom:16px">✨</div>
+          <p>Loading article...</p>
+        </div>
+
+        <!-- Markdown-rendered article body -->
+        <article id="article-content" class="markdown-body"></article>
+
+        <!-- Article end signature -->
+        <div id="article-end-card" style="display:none;margin-top:40px;padding-top:24px;border-top:2px dashed var(--line);text-align:center;">
+          <p style="font-size:13px;color:var(--ink-soft);">
+            ✿&nbsp;&nbsp;Thanks for reading&nbsp;&nbsp;✿
+          </p>
+          <p style="font-size:13px;color:var(--ink-soft);margin-top:8px;">
+            Hou Xiaowen · <span style="color:var(--accent)">Polly's Adventure Diary</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 🌲 Bottom Forest Scene -->
+  <div class="scene-footer">
+    <div class="grass-line">🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿</div>
+    <div class="forest-ground">
+      <span>🏡</span><span>🌳</span><span>🌲</span><span>🍄</span><span>🌼</span><span>🐑</span><span>🌲</span><span>🌳</span><span>🌾</span><span>🐄</span><span>🌲</span><span>🍄</span><span>🌸</span>
+    </div>
+    <p class="forest-quote">~ Planting a small forest in the digital world ~</p>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 Hou Xiaowen · Made with <span class="footer-heart">♥</span> in Wonderland</p>
+  </footer>
+
+  <!-- ===== Core Logic: Fetch Obsidian Notes from GitHub ===== -->
+  <script src="blog.js"></script>
+</body>
+</html>

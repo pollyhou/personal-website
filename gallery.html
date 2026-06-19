@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>画册 · 侯小雯 Wonderland</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 🏡 森林农场装饰元素 -->
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+
+  <div class="butterfly butterfly-1">🦋</div>
+  <div class="butterfly butterfly-2">🐝</div>
+
+  <div class="star star-1">✦</div>
+  <div class="star star-2">✧</div>
+  <div class="star star-3">✦</div>
+
+  <div class="forest-decor tree-1">🌲</div>
+  <div class="forest-decor tree-2">🌳</div>
+  <div class="forest-decor tree-3">🌲</div>
+  <div class="forest-decor tree-4">🌳</div>
+
+  <div class="forest-decor mushroom-1">🍄</div>
+  <div class="forest-decor mushroom-2">🍄</div>
+
+  <div class="forest-decor flower-1">🌼</div>
+  <div class="forest-decor flower-2">🌸</div>
+  <div class="forest-decor flower-3">🌺</div>
+
+  <div class="rabbit">🐰</div>
+  <div class="bird">🐦</div>
+
+  <nav class="nav">
+    <a class="nav-brand" href="index.html">侯小雯 <span>·</span> Wonderland</a>
+    <div class="nav-menu">
+      <a class="nav-link" href="index.html">首页</a>
+      <a class="nav-link" href="blog.html">Blog</a>
+      <a class="nav-link" href="portfolio.html">Portfolio</a>
+      <a class="nav-link active" href="gallery.html">画册</a>
+      <a class="nav-link" href="me.html">Me</a>
+      <a class="lang-switch" href="gallery-en.html">EN 🇬🇧</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">📷 画册</h1>
+      <p class="page-subtitle">用镜头收集的一些片刻</p>
+    </div>
+
+    <div class="content-section">
+      <div class="section-heading">
+        <h2>✎ 照片墙</h2>
+        <span class="sub">Photo Wall</span>
+      </div>
+
+      <!-- 这里的内容由 gallery.js 自动生成 -->
+      <div id="photo-grid"></div>
+    </div>
+  </div>
+
+  <!-- 🌲 底部森林场景 -->
+  <div class="scene-footer">
+    <div class="grass-line">🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿</div>
+    <div class="forest-ground">
+      <span>🏡</span><span>🌳</span><span>🌲</span><span>🍄</span><span>🌼</span><span>🐑</span><span>🌲</span><span>🌳</span><span>🌾</span><span>🐄</span><span>🌲</span><span>🍄</span><span>🌸</span>
+    </div>
+    <p class="forest-quote">~ 在数字世界里种一片小森林 ~</p>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 侯小雯 · Made with <span class="footer-heart">♥</span> in Wonderland</p>
+  </footer>
+
+  <!-- ================ Lightbox · 灯箱 ================ -->
+  <div id="lightbox" class="lightbox">
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev">‹</button>
+    <div class="lightbox-content" id="lightbox-content"></div>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next">›</button>
+    <button class="lightbox-close" id="lightbox-close">×</button>
+  </div>
+
+  <!-- 核心逻辑：渲染照片 + 灯箱 -->
+  <script src="gallery.js"></script>
+</body>
+</html>

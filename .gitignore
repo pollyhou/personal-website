@@ -1,0 +1,51 @@
+# ============================================
+# Git 忽略文件
+# ============================================
+
+# 依赖
+node_modules/
+.npm/
+
+# 环境变量（敏感信息，不提交！
+.env
+.env.local
+.env.*.local
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Vercel 临时文件
+.vercel
+.vercel/
+next/
+out/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 原始照片（压缩后的才提交，原始文件不放 Git）
+photos_original/
+photos_raw/
+
+# 大型媒体文件（可选，如果你不想把 photos/ 放 Git，取消注释）
+# photos/
+
+# 日志
+*.log
+npm-debug.log*
+
+# 临时文件
+tmp/
+temp/
+*.tmp

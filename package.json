@@ -1,0 +1,19 @@
+{
+  "name": "hou-xiaowen-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "侯小雯个人网站 - 童话森林风格",
+  "author": "Hou Xiaowen",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev",
+    "compress-photos": "python scripts/compress_photos.py",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  }
+}
