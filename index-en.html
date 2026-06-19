@@ -5,71 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Polly · Digital Garden</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles-home.css" />
 </head>
-<body>
-  <!-- 🏡 Forest Farm Decorations -->
-  <div class="cloud cloud-1"></div>
-  <div class="cloud cloud-2"></div>
-  <div class="cloud cloud-3"></div>
+<body class="body-home">
 
-  <div class="butterfly butterfly-1">🦋</div>
-  <div class="butterfly butterfly-2">🐝</div>
+  <!-- ============ 🌳 Watercolor Forest Background ============ -->
+  <div class="forest-scene">
 
-  <div class="star star-1">✦</div>
-  <div class="star star-2">✧</div>
-  <div class="star star-3">✦</div>
+    <div class="forest-sky"></div>
+    <div class="forest-trees forest-trees-far"></div>
+    <div class="forest-trees forest-trees-mid"></div>
 
-  <div class="forest-decor tree-1">🌲</div>
-  <div class="forest-decor tree-2">🌳</div>
-  <div class="forest-decor tree-3">🌲</div>
-  <div class="forest-decor tree-4">🌳</div>
+    <!-- ☀️ Sun rays (Tyndall effect) -->
+    <div class="sun-rays">
+      <div class="sun-ray sun-ray-1"></div>
+      <div class="sun-ray sun-ray-2"></div>
+      <div class="sun-ray sun-ray-3"></div>
+      <div class="sun-ray sun-ray-4"></div>
+      <div class="sun-ray sun-ray-5"></div>
+    </div>
 
-  <div class="forest-decor mushroom-1">🍄</div>
-  <div class="forest-decor mushroom-2">🍄</div>
+    <div class="forest-grass"></div>
+    <div class="petals-layer" id="petals-layer"></div>
+    <div class="sparkle-layer" id="sparkle-layer"></div>
+  </div>
 
-  <div class="forest-decor flower-1">🌼</div>
-  <div class="forest-decor flower-2">🌸</div>
-  <div class="forest-decor flower-3">🌺</div>
+  <!-- ============ 🦊🐻🐑 Forest friends ============ -->
+  <div class="forest-critters">
+    <div class="critter critter-fox">
+      <div class="critter-body">🦊</div>
+      <div class="critter-shadow"></div>
+    </div>
+    <div class="critter critter-bear">
+      <div class="critter-body">🐻</div>
+      <div class="critter-shadow"></div>
+    </div>
+    <div class="critter critter-sheep">
+      <div class="critter-body">🐑</div>
+      <div class="critter-shadow"></div>
+    </div>
+    <div class="critter critter-butterfly">
+      <div class="critter-body">🦋</div>
+    </div>
+  </div>
 
-  <div class="rabbit">🐰</div>
-  <div class="bird">🐦</div>
-
-  <nav class="nav">
-    <a class="nav-brand" href="index-en.html">Polly</a>
+  <nav class="nav nav-transparent">
+    <a class="nav-brand nav-brand-white" href="index-en.html">Polly</a>
     <div class="nav-menu">
-      <a class="nav-link active" href="index-en.html">Home</a>
-      <a class="nav-link" href="blog-en.html">Blog</a>
-      <a class="nav-link" href="portfolio-en.html">Portfolio</a>
-      <a class="nav-link" href="gallery-en.html">Time Postcards</a>
-      <a class="nav-link" href="me-en.html">About</a>
-      <a class="lang-switch" href="index.html">中 🇨🇳</a>
+      <a class="nav-link nav-link-white active" href="index-en.html">Home</a>
+      <a class="nav-link nav-link-white" href="blog-en.html">Blog</a>
+      <a class="nav-link nav-link-white" href="portfolio-en.html">Portfolio</a>
+      <a class="nav-link nav-link-white" href="gallery-en.html">Time Postcards</a>
+      <a class="nav-link nav-link-white" href="me-en.html">About</a>
+      <a class="lang-switch lang-switch-white" href="index.html">中 🇨🇳</a>
     </div>
   </nav>
 
-  <div class="container">
+  <div class="container container-home">
 
-    <!-- ============ 🌟 Personal Avatar + Greeting ============ -->
     <section class="home-hero">
       <div class="home-avatar-wrap">
         <div class="home-avatar-bg"></div>
         <div class="home-avatar-emoji">🌸</div>
-        <div class="home-avatar-petal petal-1">🍃</div>
-        <div class="home-avatar-petal petal-2">🌿</div>
-        <div class="home-avatar-petal petal-3">✨</div>
-        <div class="home-avatar-petal petal-4">🍂</div>
       </div>
 
-      <h1 class="home-title">
+      <h1 class="home-title home-title-white">
         <span>Hi, I'm</span>
         <span class="home-title-name">Polly</span>
         <span class="home-title-wave">👋</span>
       </h1>
 
-      <p class="home-subtitle">
+      <p class="home-subtitle home-subtitle-white">
         Walking with AI · Planting a small forest in the digital world 🌲
       </p>
 
-      <!-- ============ 🎴 Interactive Entry Cards ============ -->
       <div class="home-entries">
 
         <a href="blog-en.html" class="entry-card entry-blog">
@@ -122,29 +131,82 @@
 
       </div>
 
-      <!-- ============ ✨ Hint line ============ -->
-      <div class="home-interaction-hint">
+      <div class="home-interaction-hint home-hint-soft">
         <span class="hint-dot">🌳</span>
         <span>Each card is a door to a small world</span>
         <span class="hint-dot">🌳</span>
       </div>
-
     </section>
 
   </div>
 
-  <!-- 🌲 Forest Footer Scene -->
-  <div class="scene-footer">
-    <div class="grass-line">🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿🌿</div>
-    <div class="forest-ground">
-      <span>🏡</span><span>🌳</span><span>🌲</span><span>🍄</span><span>🌼</span><span>🐑</span><span>🌲</span><span>🌳</span><span>🌾</span><span>🐄</span><span>🌲</span><span>🍄</span><span>🌸</span>
-    </div>
-    <p class="forest-quote">~ Planting a small forest in the digital world ~</p>
-  </div>
-
-  <footer class="footer">
+  <footer class="footer footer-home">
     <p>© 2025 Polly · Made with <span class="footer-heart">♥</span></p>
   </footer>
+
+  <script>
+    /* ========== 🌸 Falling petals ========== */
+    (function initPetals() {
+      const layer = document.getElementById('petals-layer');
+      if (!layer) return;
+
+      const PETAL_COUNT = 35;
+      const petalEmojis = ['🌸', '🌸', '🌺', '🌷', '🌼', '🍃', '✨', '🌸'];
+
+      for (let i = 0; i < PETAL_COUNT; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+
+        const startX = Math.random() * 100;
+        const fallDuration = 8 + Math.random() * 10;
+        const delay = Math.random() * -20;
+        const swayAmount = 30 + Math.random() * 60;
+        const size = 14 + Math.random() * 22;
+        const rotationSpeed = (Math.random() - 0.5) * 720;
+        const emoji = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+        const opacity = 0.55 + Math.random() * 0.45;
+
+        petal.textContent = emoji;
+        petal.style.left = startX + '%';
+        petal.style.fontSize = size + 'px';
+        petal.style.animationDuration = fallDuration + 's, ' + (fallDuration * 0.5) + 's';
+        petal.style.animationDelay = delay + 's, ' + delay + 's';
+        petal.style.setProperty('--sway-x', swayAmount + 'px');
+        petal.style.setProperty('--rotate-end', rotationSpeed + 'deg');
+        petal.style.opacity = opacity;
+        petal.style.filter = 'drop-shadow(0 2px 4px rgba(255, 200, 220, 0.5))';
+
+        layer.appendChild(petal);
+      }
+    })();
+
+    /* ========== ✨ Floating sun sparkles (bokeh) ========== */
+    (function initSparkles() {
+      const layer = document.getElementById('sparkle-layer');
+      if (!layer) return;
+
+      const SPARKLE_COUNT = 18;
+      for (let i = 0; i < SPARKLE_COUNT; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+
+        const startX = Math.random() * 100;
+        const startY = Math.random() * 100;
+        const size = 4 + Math.random() * 14;
+        const duration = 3 + Math.random() * 5;
+        const delay = Math.random() * -8;
+
+        sparkle.style.left = startX + '%';
+        sparkle.style.top = startY + '%';
+        sparkle.style.width = size + 'px';
+        sparkle.style.height = size + 'px';
+        sparkle.style.animationDuration = duration + 's';
+        sparkle.style.animationDelay = delay + 's';
+
+        layer.appendChild(sparkle);
+      }
+    })();
+  </script>
 
 </body>
 </html>

@@ -1,0 +1,623 @@
+/* ================================================================
+ *  🌳 水彩森林首页 · Watercolor Forest Home Page
+ *  ================================================================ */
+
+/* 让首页 body 铺满整个视窗，没有默认的纸张色 */
+.body-home {
+  background: #e8f5d8;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ============================================================
+ *  🌳 背景森林场景
+ *  ============================================================ */
+.forest-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* --- 天空 / 整体水彩渐变 --- */
+.forest-sky {
+  position: absolute;
+  inset: 0;
+  background:
+    /* 顶部的樱花粉色水彩斑 */
+    radial-gradient(ellipse 40% 30% at 15% 10%, rgba(255, 200, 220, 0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 25% at 85% 5%, rgba(255, 220, 235, 0.45) 0%, transparent 70%),
+    /* 阳光注入的金黄色斑 */
+    radial-gradient(ellipse 30% 50% at 60% 0%, rgba(255, 236, 150, 0.45) 0%, transparent 70%),
+    /* 中间的绿色森林 */
+    radial-gradient(ellipse 60% 40% at 50% 40%, rgba(145, 200, 100, 0.55) 0%, transparent 75%),
+    radial-gradient(ellipse 40% 30% at 25% 55%, rgba(100, 180, 120, 0.5) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 35% at 75% 50%, rgba(120, 190, 130, 0.5) 0%, transparent 70%),
+    /* 底部偏蓝色阴影，表现树荫 */
+    radial-gradient(ellipse 80% 50% at 50% 95%, rgba(80, 130, 90, 0.35) 0%, transparent 70%),
+    /* 大面积基础色 - 温暖的米黄绿 */
+    linear-gradient(180deg,
+      #fdf6e3 0%,
+      #e8f5d0 25%,
+      #c5e3a8 55%,
+      #95c97c 80%,
+      #7ab868 100%);
+  /* 添加细微的水彩纸纹理 */
+  background-blend-mode: normal;
+}
+
+/* 水彩纸纹理 */
+.forest-sky::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08) 1px, transparent 1px),
+    radial-gradient(circle at 60% 70%, rgba(255,255,255,0.06) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, rgba(100,150,100,0.05) 1px, transparent 1px);
+  background-size: 50px 50px, 80px 80px, 120px 120px;
+  pointer-events: none;
+}
+
+/* --- 远处的水彩树影 --- */
+.forest-trees {
+  position: absolute;
+  left: 0; right: 0;
+  pointer-events: none;
+}
+
+.forest-trees-far {
+  top: 15%;
+  height: 45%;
+  background:
+    /* 左侧大樱花树 */
+    radial-gradient(ellipse 35% 55% at 12% 45%, rgba(255, 180, 200, 0.5) 0%, transparent 65%),
+    /* 中景淡绿树 */
+    radial-gradient(ellipse 25% 45% at 40% 50%, rgba(150, 195, 120, 0.45) 0%, transparent 65%),
+    radial-gradient(ellipse 28% 50% at 65% 55%, rgba(170, 200, 110, 0.4) 0%, transparent 65%),
+    /* 右侧粉绿树 */
+    radial-gradient(ellipse 30% 50% at 90% 50%, rgba(180, 210, 140, 0.45) 0%, transparent 65%);
+  filter: blur(2px);
+  opacity: 0.85;
+}
+
+.forest-trees-mid {
+  top: 35%;
+  height: 50%;
+  background:
+    /* 左侧大树冠 */
+    radial-gradient(ellipse 22% 40% at 15% 60%, rgba(100, 170, 110, 0.55) 0%, transparent 65%),
+    /* 中间一些树 */
+    radial-gradient(ellipse 18% 35% at 35% 65%, rgba(120, 180, 110, 0.5) 0%, transparent 65%),
+    radial-gradient(ellipse 20% 38% at 55% 60%, rgba(110, 170, 105, 0.55) 0%, transparent 65%),
+    radial-gradient(ellipse 22% 42% at 80% 65%, rgba(130, 185, 120, 0.5) 0%, transparent 65%),
+    /* 粉色花瓣点缀 */
+    radial-gradient(circle 8px at 18% 30%, rgba(255, 180, 210, 0.55) 0%, transparent 70%),
+    radial-gradient(circle 6px at 45% 25%, rgba(255, 200, 220, 0.5) 0%, transparent 70%),
+    radial-gradient(circle 7px at 70% 32%, rgba(255, 190, 215, 0.5) 0%, transparent 70%);
+}
+
+/* --- ☀️ 阳光丁达尔射线 --- */
+.sun-rays {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sun-ray {
+  position: absolute;
+  top: -10%;
+  width: 200px;
+  height: 150%;
+  background: linear-gradient(180deg,
+    rgba(255, 245, 180, 0.0) 0%,
+    rgba(255, 245, 180, 0.35) 20%,
+    rgba(255, 240, 160, 0.25) 50%,
+    rgba(255, 240, 160, 0.05) 90%,
+    transparent 100%);
+  transform-origin: top center;
+  opacity: 0.6;
+  filter: blur(8px);
+  animation: sunRayPulse 6s ease-in-out infinite;
+}
+
+.sun-ray-1 {
+  left: 10%;
+  transform: rotate(12deg);
+  animation-delay: 0s;
+}
+.sun-ray-2 {
+  left: 30%;
+  transform: rotate(5deg);
+  animation-delay: 1.5s;
+  opacity: 0.4;
+}
+.sun-ray-3 {
+  left: 55%;
+  transform: rotate(-8deg);
+  animation-delay: 0.5s;
+  opacity: 0.7;
+}
+.sun-ray-4 {
+  left: 72%;
+  transform: rotate(15deg);
+  animation-delay: 2.5s;
+  opacity: 0.45;
+}
+.sun-ray-5 {
+  left: 85%;
+  transform: rotate(-5deg);
+  animation-delay: 3.5s;
+  opacity: 0.5;
+}
+
+@keyframes sunRayPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.75; }
+}
+
+/* --- 底部草地 --- */
+.forest-grass {
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  height: 22%;
+  background:
+    /* 小草点缀 */
+    radial-gradient(circle 4px at 10% 70%, rgba(100, 150, 80, 0.6) 0%, transparent 70%),
+    radial-gradient(circle 3px at 25% 85%, rgba(120, 170, 90, 0.55) 0%, transparent 70%),
+    radial-gradient(circle 4px at 45% 75%, rgba(90, 140, 70, 0.6) 0%, transparent 70%),
+    radial-gradient(circle 3px at 65% 88%, rgba(110, 160, 85, 0.55) 0%, transparent 70%),
+    radial-gradient(circle 4px at 85% 78%, rgba(100, 150, 80, 0.6) 0%, transparent 70%),
+    /* 小花 */
+    radial-gradient(circle 5px at 15% 90%, rgba(255, 220, 240, 0.7) 0%, transparent 70%),
+    radial-gradient(circle 5px at 40% 92%, rgba(255, 240, 200, 0.7) 0%, transparent 70%),
+    radial-gradient(circle 5px at 70% 90%, rgba(255, 220, 240, 0.7) 0%, transparent 70%),
+    /* 渐变草地 */
+    linear-gradient(180deg,
+      rgba(145, 200, 100, 0.0) 0%,
+      rgba(145, 200, 100, 0.6) 30%,
+      rgba(110, 180, 90, 0.85) 60%,
+      rgba(90, 150, 80, 0.95) 100%);
+}
+
+/* ============================================================
+ *  🌸 飘落的花瓣
+ *  ============================================================ */
+.petals-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.petal {
+  position: absolute;
+  top: -10%;
+  will-change: transform;
+  animation-name: petalFall, petalSway;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  user-select: none;
+}
+
+@keyframes petalFall {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(120vh) translateX(var(--sway-x, 50px)) rotate(var(--rotate-end, 360deg));
+  }
+}
+
+@keyframes petalSway {
+  0%, 100% { margin-left: 0px; }
+  25% { margin-left: -15px; }
+  75% { margin-left: 15px; }
+}
+
+/* ============================================================
+ *  ✨ 漂浮的阳光光点（bokeh）
+ *  ============================================================ */
+.sparkle-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(255, 250, 220, 0.9) 0%,
+    rgba(255, 240, 180, 0.5) 40%,
+    rgba(255, 240, 180, 0) 70%);
+  animation: sparkleFloat 4s ease-in-out infinite;
+  will-change: transform, opacity;
+  filter: blur(1px);
+}
+
+@keyframes sparkleFloat {
+  0%, 100% {
+    opacity: 0.2;
+    transform: translate(0, 0) scale(0.8);
+  }
+  25% {
+    opacity: 0.8;
+    transform: translate(10px, -15px) scale(1.1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-5px, -25px) scale(1);
+  }
+  75% {
+    opacity: 0.75;
+    transform: translate(8px, -15px) scale(1.05);
+  }
+}
+
+/* ============================================================
+ *  🦊🐻🐑 森林小动物
+ *  ============================================================ */
+.forest-critters {
+  position: fixed;
+  bottom: 0;
+  left: 0; right: 0;
+  height: 20vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.critter {
+  position: absolute;
+  bottom: 20px;
+  animation: critterBob 4s ease-in-out infinite;
+}
+
+.critter-body {
+  font-size: 48px;
+  filter: drop-shadow(0 4px 6px rgba(0, 50, 0, 0.25));
+  line-height: 1;
+}
+
+.critter-shadow {
+  width: 40px;
+  height: 8px;
+  margin: 4px auto 0;
+  background: rgba(80, 100, 60, 0.3);
+  border-radius: 50%;
+  filter: blur(2px);
+  animation: shadowPulse 4s ease-in-out infinite;
+}
+
+.critter-fox {
+  left: 8%;
+  animation-delay: 0s;
+}
+
+.critter-bear {
+  left: 25%;
+  animation-delay: 1.2s;
+}
+
+.critter-bear .critter-body {
+  font-size: 56px;
+}
+
+.critter-sheep {
+  right: 20%;
+  animation-delay: 0.6s;
+}
+
+.critter-butterfly {
+  bottom: 60%;
+  right: 8%;
+  animation: butterflyFly 8s ease-in-out infinite;
+}
+
+.critter-butterfly .critter-body {
+  font-size: 36px;
+  animation: butterflyWing 0.4s ease-in-out infinite;
+}
+
+@keyframes critterBob {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+@keyframes shadowPulse {
+  0%, 100% { transform: scale(1); opacity: 0.35; }
+  50% { transform: scale(0.85); opacity: 0.2; }
+}
+
+@keyframes butterflyFly {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-30px, -40px); }
+  50% { transform: translate(20px, -60px); }
+  75% { transform: translate(40px, -20px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes butterflyWing {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(0.85, 1.15); }
+}
+
+/* ============================================================
+ *  🧭 透明导航栏
+ *  ============================================================ */
+.nav-transparent {
+  background: rgba(255, 255, 255, 0.35) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(145, 200, 100, 0.25);
+  position: relative;
+  z-index: 10;
+}
+
+.nav-brand-white {
+  color: #3d5a2f !important;
+}
+
+.nav-link-white {
+  color: #4a6b3a !important;
+}
+
+.nav-link-white.active {
+  background: rgba(145, 200, 100, 0.35) !important;
+  color: #2d4a1f !important;
+}
+
+.lang-switch-white {
+  color: #4a6b3a !important;
+  border-color: rgba(145, 200, 100, 0.5) !important;
+}
+
+/* ============================================================
+ *  📦 首页内容容器
+ *  ============================================================ */
+.container-home {
+  position: relative;
+  z-index: 5;
+  min-height: calc(100vh - 80px);
+}
+
+/* ============================================================
+ *  🌟 头像 / 标题
+ *  ============================================================ */
+.home-hero .home-avatar-wrap {
+  margin-top: 30px;
+}
+
+.home-hero .home-avatar-bg {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6) 0%, transparent 30%),
+    radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 20%),
+    linear-gradient(135deg, rgba(255, 220, 235, 0.9) 0%, rgba(220, 240, 200, 0.95) 50%, rgba(200, 230, 180, 0.9) 100%);
+  box-shadow:
+    0 8px 32px rgba(74, 107, 58, 0.25),
+    0 0 0 6px rgba(255, 255, 255, 0.7),
+    0 0 0 8px rgba(145, 200, 100, 0.5),
+    inset 0 4px 12px rgba(255, 255, 255, 0.4);
+}
+
+.home-title-white {
+  color: #2d4a1f;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.home-subtitle-white {
+  color: #3d5a2f;
+}
+
+/* ============================================================
+ *  🎴 入口卡片 - 重写为更柔和的水彩风
+ *  ============================================================ */
+.home-entries {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto 40px;
+}
+
+.entry-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 22px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 2px solid rgba(145, 200, 100, 0.4);
+  border-radius: 22px;
+  text-decoration: none;
+  color: #2d4a1f;
+  box-shadow:
+    0 4px 16px rgba(74, 107, 58, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease,
+              background 0.3s ease;
+  overflow: hidden;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.entry-card:hover {
+  transform: translateY(-6px) rotate(-0.5deg);
+  box-shadow:
+    0 16px 40px rgba(74, 107, 58, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-color: #91c864;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.entry-icon {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  box-shadow:
+    0 2px 8px rgba(74, 107, 58, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+}
+
+.entry-icon-main {
+  font-size: 36px;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.entry-card:hover .entry-icon-main {
+  transform: scale(1.15) rotate(-8deg);
+}
+
+.entry-icon-bg {
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  font-size: 44px;
+  opacity: 0.15;
+  z-index: 1;
+  transform: rotate(12deg);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.entry-card:hover .entry-icon-bg {
+  opacity: 0.3;
+  transform: rotate(-12deg) scale(1.2);
+}
+
+.entry-text {
+  flex: 1;
+  text-align: left;
+  min-width: 0;
+}
+
+.entry-text h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: #2d4a1f;
+}
+
+.entry-text p {
+  font-size: 13px;
+  color: #4a6b3a;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.entry-arrow {
+  font-size: 22px;
+  color: #7ab868;
+  font-weight: 600;
+  opacity: 0.7;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  flex-shrink: 0;
+}
+
+.entry-card:hover .entry-arrow {
+  transform: translateX(6px);
+  opacity: 1;
+}
+
+/* 每个卡片的独特背景色 */
+.entry-blog {
+  background: linear-gradient(135deg,
+    rgba(255, 240, 220, 0.75) 0%,
+    rgba(255, 255, 255, 0.75) 100%);
+}
+.entry-portfolio {
+  background: linear-gradient(135deg,
+    rgba(220, 240, 255, 0.75) 0%,
+    rgba(255, 255, 255, 0.75) 100%);
+}
+.entry-gallery {
+  background: linear-gradient(135deg,
+    rgba(255, 230, 240, 0.75) 0%,
+    rgba(255, 255, 255, 0.75) 100%);
+}
+.entry-me {
+  background: linear-gradient(135deg,
+    rgba(220, 245, 210, 0.75) 0%,
+    rgba(255, 255, 255, 0.75) 100%);
+}
+
+/* 底部提示 */
+.home-hint-soft {
+  background: rgba(255, 255, 255, 0.55) !important;
+  border: 1px dashed rgba(145, 200, 100, 0.5) !important;
+  color: #3d5a2f !important;
+  backdrop-filter: blur(6px);
+}
+
+/* ============================================================
+ *  🦶 首页 footer
+ *  ============================================================ */
+.footer-home {
+  position: relative;
+  z-index: 5;
+  background: rgba(90, 150, 80, 0.2) !important;
+  border-top: 1px solid rgba(90, 150, 80, 0.25);
+  color: #2d4a1f !important;
+  backdrop-filter: blur(8px);
+}
+
+.footer-home .footer-heart {
+  color: #e91e63;
+}
+
+/* ============================================================
+ *  📱 响应式
+ *  ============================================================ */
+@media (max-width: 640px) {
+  .home-hero .home-avatar-wrap {
+    width: 150px;
+    height: 150px;
+  }
+  .home-hero .home-avatar-emoji {
+    font-size: 60px;
+  }
+
+  .forest-critters {
+    height: 14vh;
+  }
+  .critter-body {
+    font-size: 36px;
+  }
+  .critter-bear .critter-body {
+    font-size: 44px;
+  }
+
+  .forest-trees-far {
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 480px) {
+  .critter-fox { left: 5%; }
+  .critter-bear { left: 35%; }
+  .critter-sheep { right: 10%; }
+
+  .critter-body {
+    font-size: 32px;
+  }
+  .critter-bear .critter-body {
+    font-size: 38px;
+  }
+}
