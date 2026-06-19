@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery · Polly</title>
+  <title>Time Postcards · Polly</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -40,7 +40,7 @@
       <a class="nav-link" href="index-en.html">Home</a>
       <a class="nav-link" href="blog-en.html">Blog</a>
       <a class="nav-link" href="portfolio-en.html">Portfolio</a>
-      <a class="nav-link active" href="gallery-en.html">Gallery</a>
+      <a class="nav-link active" href="gallery-en.html">Time Postcards</a>
       <a class="nav-link" href="me-en.html">About</a>
       <a class="lang-switch" href="gallery.html">中 🇨🇳</a>
     </div>
@@ -48,8 +48,43 @@
 
   <div class="container">
     <div class="page-header">
-      <h1 class="page-title">📷 Gallery</h1>
-      <p class="page-subtitle">Moments collected through my lens</p>
+      <h1 class="page-title">📮 Time Postcards</h1>
+      <p class="page-subtitle">Moments collected through my lens · Tap the mailbox to get a random postcard from the past</p>
+    </div>
+
+    <!-- ✉️ The Big Mailbox · Tap for a random postcard -->
+    <div class="mailbox-section">
+      <div class="mailbox-wrapper" id="mailbox">
+        <div class="mailbox-body">
+          <div class="mailbox-slot"></div>
+          <div class="mailbox-door">
+            <div class="mailbox-door-knob">●</div>
+          </div>
+          <div class="mailbox-label">POST · MAIL</div>
+        </div>
+        <div class="mailbox-post"></div>
+        <div class="mailbox-hint" id="mailbox-hint">👉 Tap me, pick a random postcard</div>
+      </div>
+    </div>
+
+    <!-- 📬 Random postcard modal -->
+    <div id="postcard-modal" class="postcard-modal">
+      <div class="postcard-inner" id="postcard-inner">
+        <button class="postcard-close" id="postcard-close">×</button>
+        <div class="postcard-stamp">📮</div>
+        <div class="postcard-image-wrap">
+          <img id="postcard-img" src="" alt="postcard" />
+        </div>
+        <div class="postcard-content">
+          <div class="postcard-timestamp" id="postcard-timestamp"></div>
+          <div class="postcard-title" id="postcard-title"></div>
+          <div class="postcard-caption" id="postcard-caption"></div>
+          <div class="postcard-footer">
+            <span id="postcard-footer">— from some sunlit moment</span>
+            <button class="btn btn-primary" id="postcard-again" style="padding:8px 16px;font-size:13px;">Draw again 🎲</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="content-section">

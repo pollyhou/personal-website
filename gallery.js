@@ -1,5 +1,5 @@
 /* ============================================================
- * 📷 画册 · 照片数据文件
+ * 📮 时光明信片 · 照片数据文件
  * ============================================================
  *  用法：把你的照片放到 `photos/` 文件夹里，
  *  然后在下面的 PHOTOS 数组里添加它们的信息。
@@ -1209,7 +1209,7 @@ async function renderGallery() {
     container.innerHTML = `
       <div class="gallery-empty">
         <div class="gallery-empty-emoji">📷 🌿</div>
-        <h3>画册还在准备中…</h3>
+        <h3>时光明信片还在准备中…</h3>
         <p>
           把你拍的照片放到网站根目录的 <code style="background:var(--paper);padding:2px 8px;border-radius:4px;">photos/</code> 文件夹里，
           然后在 <code style="background:var(--paper);padding:2px 8px;border-radius:4px;">gallery.js</code> 的 <code style="background:var(--paper);padding:2px 8px;border-radius:4px;">PHOTOS</code> 数组里
@@ -1368,4 +1368,159 @@ document.addEventListener("DOMContentLoaded", () => {
     else if (e.key === "ArrowLeft") prevLightbox();
     else if (e.key === "ArrowRight") nextLightbox();
   });
+
+  // ===== 📮 时光信箱 · 随机明信片 =====
+  initMailbox();
 });
+
+/* ============================================================
+ *  时光信箱 · Random Postcard
+ * ============================================================ */
+
+// 全局缓存：打平后的照片数组，供信箱使用
+let __mailboxPhotos = null;
+let __mailboxLastIndex = -1;
+
+async function ensureMailboxPhotos() {
+  if (__mailboxPhotos && __mailboxPhotos.length > 0) return __mailboxPhotos;
+
+  // 先尝试 API（同相册用的数据源
+  try {
+    const res = await fetch("/api/photos?group_by=date");
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.groups && data.groups.length > 0) {
+        const flat = [];
+        data.groups.forEach((g) => flat.push(...g.photos));
+        __mailboxPhotos = flat;
+        return flat;
+      }
+    }
+  } catch (e) {}
+
+  // 回退到本地 PHOTOS 数组
+  if (typeof PHOTOS !== "undefined" && PHOTOS.length > 0) {
+    __mailboxPhotos = PHOTOS.filter((p) => p && p.src);
+    return __mailboxPhotos;
+  }
+  return [];
+}
+
+function pickRandomPhoto(photos) {
+  if (!photos || photos.length === 0) return null;
+  if (photos.length === 1) return photos[0];
+  let idx = Math.floor(Math.random() * photos.length);
+  // 尽量避免连续抽到同一张
+  if (idx === __mailboxLastIndex) idx = (idx + 1) % photos.length;
+  __mailboxLastIndex = idx;
+  return photos[idx];
+}
+
+function formatPostcardDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  // 更像明信片邮戳的风格
+  const zhMonths = ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"];
+  return `${d.getFullYear()} 年 ${zhMonths[d.getMonth()]} ${d.getDate()} 日`;
+}
+
+function formatPostcardDateEn(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
+async function showRandomPostcard() {
+  const photos = await ensureMailboxPhotos();
+  if (photos.length === 0) {
+    const hint = document.getElementById("mailbox-hint");
+    if (hint) hint.textContent = "还没有照片呢 🌱";
+    return;
+  }
+
+  const photo = pickRandomPhoto(photos);
+  const isEn = document.documentElement.lang === "en" || document.getElementById("postcard-footer") && document.body.innerText;
+
+  // 邮箱摇晃动画
+  const mailbox = document.getElementById("mailbox");
+  if (mailbox) {
+    mailbox.classList.remove("mailbox-shake");
+    void mailbox.offsetWidth; // reflow
+    mailbox.classList.add("mailbox-shake");
+  }
+
+  // 填内容
+  const img = document.getElementById("postcard-img");
+  if (img) {
+    img.src = "photos/" + photo.src;
+    img.alt = photo.title || "postcard";
+  }
+
+  const isEnglish = document.documentElement.lang === "en";
+  const tsEl = document.getElementById("postcard-timestamp");
+  if (tsEl) tsEl.textContent = (isEnglish
+      ? `Postmarked · ${formatPostcardDateEn(photo.date) || "Undated"}`
+      : `📬 邮戳 · ${formatPostcardDate(photo.date) || "某年某月"}`;
+
+  const titleEl = document.getElementById("postcard-title");
+  if (titleEl) titleEl.textContent = photo.title || "";
+
+  const capEl = document.getElementById("postcard-caption");
+  if (capEl) capEl.textContent = photo.caption || photo.description || "";
+
+  const footerEl = document.getElementById("postcard-footer");
+  if (footerEl) {
+    footerEl.textContent = isEnglish ? "— from some sunlit moment" : "— 来自某片被阳光晒过的时光";
+  }
+
+  // 打开弹窗
+  const modal = document.getElementById("postcard-modal");
+  if (modal) {
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+    // 重置动画
+    const inner = document.getElementById("postcard-inner");
+    if (inner) {
+      inner.classList.remove("postcard-flip-in");
+      void inner.offsetWidth;
+      inner.classList.add("postcard-flip-in");
+    }
+  }
+}
+
+function closePostcardModal() {
+  const modal = document.getElementById("postcard-modal");
+  if (modal) modal.classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+function initMailbox() {
+  const mailbox = document.getElementById("mailbox");
+  if (mailbox) {
+    mailbox.addEventListener("click", showRandomPostcard);
+  }
+
+  const closeBtn = document.getElementById("postcard-close");
+  if (closeBtn) closeBtn.addEventListener("click", closePostcardModal);
+
+  const againBtn = document.getElementById("postcard-again");
+  if (againBtn) againBtn.addEventListener("click", showRandomPostcard);
+
+  // 点击遮罩关闭
+  const modal = document.getElementById("postcard-modal");
+  if (modal) {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closePostcardModal();
+    });
+  }
+
+  // ESC 关闭
+  document.addEventListener("keydown", (e) => {
+    const m = document.getElementById("postcard-modal");
+    if (m && m.classList.contains("active") && e.key === "Escape") {
+      closePostcardModal();
+    }
+  });
+}

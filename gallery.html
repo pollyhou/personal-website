@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>画册 · 侯小雯</title>
+  <title>时光明信片 · 侯小雯</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -40,7 +40,7 @@
       <a class="nav-link" href="index.html">首页</a>
       <a class="nav-link" href="blog.html">Blog</a>
       <a class="nav-link" href="portfolio.html">Portfolio</a>
-      <a class="nav-link active" href="gallery.html">画册</a>
+      <a class="nav-link active" href="gallery.html">时光明信片</a>
       <a class="nav-link" href="me.html">Me</a>
       <a class="lang-switch" href="gallery-en.html">EN 🇬🇧</a>
     </div>
@@ -48,8 +48,43 @@
 
   <div class="container">
     <div class="page-header">
-      <h1 class="page-title">📷 画册</h1>
-      <p class="page-subtitle">用镜头收集的一些片刻</p>
+      <h1 class="page-title">📮 时光明信片</h1>
+      <p class="page-subtitle">用镜头收集的一些片刻 · 点一下信箱，随机收一张来自过去的明信片</p>
+    </div>
+
+    <!-- ✉️ 大型信箱 · 点击随机抽取 -->
+    <div class="mailbox-section">
+      <div class="mailbox-wrapper" id="mailbox">
+        <div class="mailbox-body">
+          <div class="mailbox-slot"></div>
+          <div class="mailbox-door">
+            <div class="mailbox-door-knob">●</div>
+          </div>
+          <div class="mailbox-label">POST · MAIL</div>
+        </div>
+        <div class="mailbox-post"></div>
+        <div class="mailbox-hint" id="mailbox-hint">👉 点我，抽一张时光明信片</div>
+      </div>
+    </div>
+
+    <!-- 📬 随机明信片弹窗 -->
+    <div id="postcard-modal" class="postcard-modal">
+      <div class="postcard-inner" id="postcard-inner">
+        <button class="postcard-close" id="postcard-close">×</button>
+        <div class="postcard-stamp">📮</div>
+        <div class="postcard-image-wrap">
+          <img id="postcard-img" src="" alt="postcard" />
+        </div>
+        <div class="postcard-content">
+          <div class="postcard-timestamp" id="postcard-timestamp"></div>
+          <div class="postcard-title" id="postcard-title"></div>
+          <div class="postcard-caption" id="postcard-caption"></div>
+          <div class="postcard-footer">
+            <span id="postcard-footer">— 来自某片被阳光晒过的时光</span>
+            <button class="btn btn-primary" id="postcard-again" style="padding:8px 16px;font-size:13px;">再抽一张 🎲</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="content-section">

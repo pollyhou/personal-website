@@ -1930,3 +1930,315 @@ body > * {
 }
 .markdown-body pre code { background: none; color: inherit; padding: 0; }
 .markdown-body a { color: var(--accent); text-decoration: underline; }
+
+
+/* ============================================================
+ *  📮 时光信箱 · Mailbox + Postcard
+ * ============================================================ */
+
+/* 信箱区域 */
+.mailbox-section {
+  display: flex;
+  justify-content: center;
+  padding: 30px 0 20px;
+}
+
+.mailbox-wrapper {
+  position: relative;
+  cursor: pointer;
+  padding: 20px 30px 10px;
+  text-align: center;
+  transition: transform 0.2s ease;
+  user-select: none;
+}
+
+.mailbox-wrapper:hover { transform: translateY(-4px); }
+.mailbox-wrapper:active { transform: translateY(-1px); }
+
+/* 信箱主体 —— 一个蓝色的童话小信箱 */
+.mailbox-body {
+  position: relative;
+  width: 180px;
+  height: 150px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #2c7be5 0%, #1e5fb8 100%);
+  border: 4px solid #123f80;
+  border-radius: 16px 16px 12px 12px;
+  box-shadow:
+    0 6px 0 #0d2f60,
+    0 12px 24px rgba(20, 50, 100, 0.3),
+    inset 0 2px 4px rgba(255,255,255,0.15);
+  overflow: hidden;
+}
+
+.mailbox-body::before {
+  content: "";
+  position: absolute;
+  top: 10px; left: 10px; right: 10px;
+  height: 18px;
+  background: linear-gradient(180deg, #3d8ef0 0%, #2c7be5 100%);
+  border: 2px solid #123f80;
+  border-radius: 6px;
+}
+
+/* 投信口 */
+.mailbox-slot {
+  position: absolute;
+  top: 14px; left: 30px; right: 30px;
+  height: 14px;
+  background: #0a1f3d;
+  border-radius: 3px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+/* 小门 */
+.mailbox-door {
+  position: absolute;
+  bottom: 14px; left: 20px; right: 20px;
+  height: 80px;
+  background: linear-gradient(180deg, #3d8ef0 0%, #1e5fb8 100%);
+  border: 3px solid #123f80;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.mailbox-door-knob {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #f5d05a;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* POST MAIL 标签 */
+.mailbox-label {
+  position: absolute;
+  bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #f5d05a;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  z-index: 3;
+}
+
+/* 柱子 */
+.mailbox-post {
+  width: 16px;
+  height: 80px;
+  margin: -4px auto 0;
+  background: linear-gradient(180deg, #8b5a2b 0%, #5a3914 100%);
+  border: 3px solid #3e250d;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* 提示文字 */
+.mailbox-hint {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--paper);
+  display: inline-block;
+  padding: 6px 18px;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  box-shadow: 0 2px 6px rgba(74,107,58,0.08);
+  animation: hintFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes hintFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* 点击时的摇晃动画 */
+.mailbox-shake .mailbox-body {
+  animation: mailboxWobble 0.5s ease;
+}
+
+@keyframes mailboxWobble {
+  0%   { transform: rotate(0deg); }
+  15%  { transform: rotate(-6deg); }
+  30%  { transform: rotate(5deg); }
+  45%  { transform: rotate(-3deg); }
+  60%  { transform: rotate(2deg); }
+  75%  { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* 响应式 */
+@media (max-width: 640px) {
+  .mailbox-body { width: 140px; height: 120px; }
+  .mailbox-door { height: 64px; }
+  .mailbox-post { height: 60px; }
+}
+
+/* ============================================================
+ *  📬 明信片弹窗
+ * ============================================================ */
+
+.postcard-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 30, 50, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.postcard-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.postcard-inner {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  background: #fdf6e8;
+  background-image:
+    linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
+  border: 3px solid #c9a96e;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.35),
+    inset 0 0 40px rgba(201, 169, 110, 0.1);
+}
+
+.postcard-flip-in {
+  animation: postcardFlipIn 0.5s ease-out;
+}
+
+@keyframes postcardFlipIn {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(-80deg) scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(10deg) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0deg) scale(1);
+  }
+}
+
+/* 关闭按钮 */
+.postcard-close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #c9a96e;
+  color: #5a4020;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  z-index: 2;
+  line-height: 1;
+}
+.postcard-close:hover { background: #c9a96e; color: #fff; }
+
+/* 邮戳 */
+.postcard-stamp {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  border: 3px dashed #c0392b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  transform: rotate(12deg);
+  opacity: 0.85;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 1;
+}
+
+/* 图片区域 */
+.postcard-image-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 66.6%; /* 3:2 */
+  border-radius: 4px;
+  overflow: hidden;
+  background: #eee;
+  border: 2px solid #c9a96e;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 14px;
+}
+
+.postcard-image-wrap img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 内容 */
+.postcard-content {
+  padding: 4px 2px 0;
+}
+
+.postcard-timestamp {
+  font-size: 13px;
+  color: #a0522d;
+  font-style: italic;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.postcard-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #3a2817;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.postcard-caption {
+  font-size: 15px;
+  color: #5a4020;
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.postcard-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px dashed #c9a96e;
+  font-size: 13px;
+  color: #8b6f45;
+  font-style: italic;
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .postcard-inner { padding: 14px; }
+  .postcard-stamp { width: 44px; height: 44px; font-size: 22px; top: 14px; right: 16px; }
+  .postcard-title { font-size: 17px; }
+  .postcard-caption { font-size: 14px; }
+}
