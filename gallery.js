@@ -1441,24 +1441,42 @@ async function showRandomPostcard() {
   }
 
   const photo = pickRandomPhoto(photos);
-  const isEn = document.documentElement.lang === "en" || document.getElementById("postcard-footer") && document.body.innerText;
+  const isEnglish = document.documentElement.lang === "en";
 
-  // 邮箱摇晃动画
+  // 邮箱摇晃动画（支持新旧两种样式）
   const mailbox = document.getElementById("mailbox");
   if (mailbox) {
+    // 新版邮箱
+    mailbox.classList.remove("mailbox-interacted");
+    void mailbox.offsetWidth;
+    mailbox.classList.add("mailbox-interacted");
+    // 兼容旧版
     mailbox.classList.remove("mailbox-shake");
-    void mailbox.offsetWidth; // reflow
+    void mailbox.offsetWidth;
     mailbox.classList.add("mailbox-shake");
   }
 
   // 填内容
   const img = document.getElementById("postcard-img");
   if (img) {
-    img.src = "photos/" + photo.src;
+    // 支持两种路径格式：完整 URL 或相对路径
+    if (photo.src && (photo.src.startsWith("http") || photo.src.startsWith("/"))) {
+      img.src = photo.src;
+    } else {
+      img.src = "photos/" + (photo.src || "");
+    }
     img.alt = photo.title || "postcard";
+    img.onerror = function() {
+      // 如果加载失败，尝试备用路径
+      if (!photo.src) return;
+      if (!this.src.includes("placeholder")) {
+        this.src = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect fill="%23f5e6d3" width="400" height="300"/><text fill="%23c8a030" font-family="sans-serif" font-size="24" x="50%25" y="50%" text-anchor="middle">📷 时光明信片</text></svg>'
+        );
+      }
+    };
   }
 
-  const isEnglish = document.documentElement.lang === "en";
   const tsEl = document.getElementById("postcard-timestamp");
   if (tsEl) tsEl.textContent = (isEnglish
       ? `Postmarked · ${formatPostcardDateEn(photo.date) || "Undated"}`

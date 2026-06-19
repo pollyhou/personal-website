@@ -7,56 +7,38 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="styles-home.css" />
 </head>
-<body class="body-home">
+<body class="body-home body-home-simplified">
 
-  <!-- ============================================================
-       🌳 第 0 层: 静态插画背景
-       请把插画保存为 home-bg.jpg 放到项目根目录
-       ============================================================ -->
-  <div class="bg-layer">
+  <!-- ============ 1️⃣ 背景森林插画 ============ -->
+  <div class="bg-layer bg-layer-simplified">
     <div class="bg-img"></div>
-    <!-- 轻微的暗角，让画面更像油画 -->
     <div class="bg-vignette"></div>
+    <!-- 让背景更暗一层以突出熊 -->
+    <div class="bg-overlay-tint"></div>
   </div>
 
-  <!-- ============================================================
-       ☀️ 第 1 层: 金色丁达尔光束 (CSS)
-       ============================================================ -->
+  <!-- ============ 2️⃣ 金色光束 ============ -->
   <div class="rays-layer">
     <div class="ray ray-1"></div>
-    <div class="ray ray-2"></div>
     <div class="ray ray-3"></div>
-    <div class="ray ray-4"></div>
     <div class="ray ray-5"></div>
-    <div class="ray ray-6"></div>
   </div>
 
-  <!-- ============================================================
-       ✨ 第 2 层: 圆形柔光光斑 (CSS)
-       ============================================================ -->
+  <!-- ============ 3️⃣ 柔光光斑 ============ -->
   <div class="bokeh-layer">
     <div class="bokeh bokeh-1"></div>
     <div class="bokeh bokeh-2"></div>
-    <div class="bokeh bokeh-3"></div>
-    <div class="bokeh bokeh-4"></div>
     <div class="bokeh bokeh-5"></div>
-    <div class="bokeh bokeh-6"></div>
     <div class="bokeh bokeh-7"></div>
   </div>
 
-  <!-- ============================================================
-       🌸 第 3 层: Canvas 花瓣粒子 (JS 绘制)
-       ============================================================ -->
+  <!-- ============ 4️⃣ 花瓣粒子层 ============ -->
   <canvas id="petals-canvas" class="petals-canvas"></canvas>
 
-  <!-- ============================================================
-       🌙 第 4 层: 全画面亮度呼吸 (CSS)
-       ============================================================ -->
+  <!-- ============ 5️⃣ 亮度呼吸 ============ -->
   <div class="breath-layer"></div>
 
-  <!-- ============================================================
-       🧭 导航栏 (半透明磨砂玻璃)
-       ============================================================ -->
+  <!-- ============ 🧭 导航栏 ============ -->
   <nav class="nav nav-transparent">
     <a class="nav-brand nav-brand-white" href="index.html">侯小雯</a>
     <div class="nav-menu">
@@ -69,87 +51,118 @@
     </div>
   </nav>
 
-  <!-- ============================================================
-       🌟 内容区: 头像 + 标题 + 入口卡片
-       ============================================================ -->
-  <div class="container container-home">
-    <section class="home-hero">
+  <!-- ============ 🐻 主交互区：绿色暴力熊 ============ -->
+  <div class="container container-home-simplified">
 
-      <!-- 个人头像 (樱花圆) -->
-      <div class="home-avatar-wrap">
-        <div class="home-avatar-bg"></div>
-        <div class="home-avatar-emoji">🌸</div>
-      </div>
+    <!-- 标题 -->
+    <div class="home-simplified-title">
+      <h1>嗨，我是<span class="name-highlight">侯小雯</span></h1>
+      <p>与 AI 同行 · 在数字世界里种一片小森林 🌲</p>
+    </div>
 
-      <!-- 标题 -->
-      <h1 class="home-title home-title-white">
-        <span>嗨，我是</span>
-        <span class="home-title-name">侯小雯</span>
-      </h1>
+    <!-- 大绿熊容器 -->
+    <div class="bear-wrap" id="bear-wrap">
+      <div class="bear" id="bear">
 
-      <p class="home-subtitle home-subtitle-white">
-        与 AI 同行 · 在数字世界里种一片小森林 🌲
-      </p>
+        <!-- 耳朵 -->
+        <div class="bear-ear bear-ear-left"></div>
+        <div class="bear-ear bear-ear-right"></div>
 
-      <!-- 4 张入口卡片 -->
-      <div class="home-entries">
+        <!-- 头顶装饰（一朵小红花 - 暴力熊特色） -->
+        <div class="bear-flower">🌸</div>
 
-        <a href="blog.html" class="entry-card entry-blog">
-          <div class="entry-icon">
-            <span class="entry-icon-main">📖</span>
+        <!-- 脸 -->
+        <div class="bear-face">
+          <!-- 眼睛：会跟随鼠标 -->
+          <div class="bear-eye bear-eye-left">
+            <div class="bear-eye-pupil" id="pupil-left"></div>
           </div>
-          <div class="entry-text">
-            <h3>日志</h3>
-            <p>记录灵感与日常</p>
+          <div class="bear-eye bear-eye-right">
+            <div class="bear-eye-pupil" id="pupil-right"></div>
           </div>
-        </a>
+          <!-- 鼻子 -->
+          <div class="bear-nose">●</div>
+          <!-- 嘴巴 -->
+          <div class="bear-mouth">︵</div>
+          <!-- 腮红 -->
+          <div class="bear-cheek bear-cheek-left"></div>
+          <div class="bear-cheek bear-cheek-right"></div>
+        </div>
 
-        <a href="portfolio.html" class="entry-card entry-portfolio">
-          <div class="entry-icon">
-            <span class="entry-icon-main">🎨</span>
-          </div>
-          <div class="entry-text">
-            <h3>作品集</h3>
-            <p>AI 产品与想法实验</p>
-          </div>
-        </a>
+        <!-- 肚子圆 -->
+        <div class="bear-belly">
+          <div class="bear-belly-shine"></div>
+        </div>
 
-        <a href="gallery.html" class="entry-card entry-gallery">
-          <div class="entry-icon">
-            <span class="entry-icon-main">📮</span>
-          </div>
-          <div class="entry-text">
-            <h3>时光明信片</h3>
-            <p>被镜头定格的片刻</p>
-          </div>
-        </a>
-
-        <a href="me.html" class="entry-card entry-me">
-          <div class="entry-icon">
-            <span class="entry-icon-main">🌿</span>
-          </div>
-          <div class="entry-text">
-            <h3>我</h3>
-            <p>关于我的故事</p>
-          </div>
-        </a>
+        <!-- 身上符号（暴力熊特色 - 一颗 X / 爱心） -->
+        <div class="bear-mark">♥</div>
 
       </div>
 
-    </section>
+      <!-- 熊的影子 -->
+      <div class="bear-shadow"></div>
+
+      <!-- 交互提示 -->
+      <div class="bear-hint" id="bear-hint">
+        👆 点我试试看
+      </div>
+    </div>
+
+    <!-- ============ 🎴 入口卡片 ============ -->
+    <div class="home-entries home-entries-simplified">
+      <a href="blog.html" class="entry-card entry-blog">
+        <div class="entry-icon">
+          <span class="entry-icon-main">📖</span>
+        </div>
+        <div class="entry-text">
+          <h3>日志</h3>
+          <p>灵感与日常</p>
+        </div>
+      </a>
+
+      <a href="portfolio.html" class="entry-card entry-portfolio">
+        <div class="entry-icon">
+          <span class="entry-icon-main">🎨</span>
+        </div>
+        <div class="entry-text">
+          <h3>作品集</h3>
+          <p>AI 产品实验</p>
+        </div>
+      </a>
+
+      <a href="gallery.html" class="entry-card entry-gallery">
+        <div class="entry-icon">
+          <span class="entry-icon-main">📮</span>
+        </div>
+        <div class="entry-text">
+          <h3>时光明信片</h3>
+          <p>定格的片刻</p>
+        </div>
+      </a>
+
+      <a href="me.html" class="entry-card entry-me">
+        <div class="entry-icon">
+          <span class="entry-icon-main">🌿</span>
+        </div>
+        <div class="entry-text">
+          <h3>我</h3>
+          <p>关于我的故事</p>
+        </div>
+      </a>
+    </div>
+
   </div>
 
-  <!-- ============================================================
-       🦶 页脚
-       ============================================================ -->
+  <!-- ============ 🦶 页脚 ============ -->
   <footer class="footer footer-home">
     <p>© 2025 侯小雯 · Made with <span class="footer-heart">♥</span></p>
   </footer>
 
-  <!-- ============================================================
-       🎬 粒子动画脚本
-       ============================================================ -->
+  <!-- ============ 🎬 粒子动画脚本 ============ -->
   <script src="home-particles.js"></script>
+
+  <!-- ============ 🐻 熊交互脚本 ============ -->
+  <script src="home-bear.js"></script>
 
 </body>
 </html>

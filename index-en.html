@@ -7,55 +7,37 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="styles-home.css" />
 </head>
-<body class="body-home">
+<body class="body-home body-home-simplified">
 
-  <!-- ============================================================
-       🌳 Layer 0: Static illustration background
-       (Save your illustration as home-bg.jpg in project root)
-       ============================================================ -->
-  <div class="bg-layer">
+  <!-- ============ 1️⃣ Forest illustration background ============ -->
+  <div class="bg-layer bg-layer-simplified">
     <div class="bg-img"></div>
     <div class="bg-vignette"></div>
+    <div class="bg-overlay-tint"></div>
   </div>
 
-  <!-- ============================================================
-       ☀️ Layer 1: Golden Tyndall light beams (CSS)
-       ============================================================ -->
+  <!-- ============ 2️⃣ Golden light beams ============ -->
   <div class="rays-layer">
     <div class="ray ray-1"></div>
-    <div class="ray ray-2"></div>
     <div class="ray ray-3"></div>
-    <div class="ray ray-4"></div>
     <div class="ray ray-5"></div>
-    <div class="ray ray-6"></div>
   </div>
 
-  <!-- ============================================================
-       ✨ Layer 2: Soft bokeh light spots (CSS)
-       ============================================================ -->
+  <!-- ============ 3️⃣ Bokeh spots ============ -->
   <div class="bokeh-layer">
     <div class="bokeh bokeh-1"></div>
     <div class="bokeh bokeh-2"></div>
-    <div class="bokeh bokeh-3"></div>
-    <div class="bokeh bokeh-4"></div>
     <div class="bokeh bokeh-5"></div>
-    <div class="bokeh bokeh-6"></div>
     <div class="bokeh bokeh-7"></div>
   </div>
 
-  <!-- ============================================================
-       🌸 Layer 3: Canvas petal particles (JS)
-       ============================================================ -->
+  <!-- ============ 4️⃣ Petal particles ============ -->
   <canvas id="petals-canvas" class="petals-canvas"></canvas>
 
-  <!-- ============================================================
-       🌙 Layer 4: Fullscreen brightness breathing (CSS)
-       ============================================================ -->
+  <!-- ============ 5️⃣ Brightness breathing ============ -->
   <div class="breath-layer"></div>
 
-  <!-- ============================================================
-       🧭 Nav bar
-       ============================================================ -->
+  <!-- ============ 🧭 Nav bar ============ -->
   <nav class="nav nav-transparent">
     <a class="nav-brand nav-brand-white" href="index-en.html">Polly</a>
     <div class="nav-menu">
@@ -68,71 +50,84 @@
     </div>
   </nav>
 
-  <!-- ============================================================
-       🌟 Content: Avatar + Title + Entry Cards
-       ============================================================ -->
-  <div class="container container-home">
-    <section class="home-hero">
+  <!-- ============ 🐻 Main: Interactive Green Bear ============ -->
+  <div class="container container-home-simplified">
 
-      <div class="home-avatar-wrap">
-        <div class="home-avatar-bg"></div>
-        <div class="home-avatar-emoji">🌸</div>
+    <div class="home-simplified-title">
+      <h1>Hi, I'm <span class="name-highlight">Polly</span></h1>
+      <p>Walking with AI · Planting a small forest in the digital world 🌲</p>
+    </div>
+
+    <div class="bear-wrap" id="bear-wrap">
+      <div class="bear" id="bear">
+        <div class="bear-ear bear-ear-left"></div>
+        <div class="bear-ear bear-ear-right"></div>
+        <div class="bear-flower">🌸</div>
+        <div class="bear-face">
+          <div class="bear-eye bear-eye-left">
+            <div class="bear-eye-pupil" id="pupil-left"></div>
+          </div>
+          <div class="bear-eye bear-eye-right">
+            <div class="bear-eye-pupil" id="pupil-right"></div>
+          </div>
+          <div class="bear-nose">●</div>
+          <div class="bear-mouth">︵</div>
+          <div class="bear-cheek bear-cheek-left"></div>
+          <div class="bear-cheek bear-cheek-right"></div>
+        </div>
+        <div class="bear-belly">
+          <div class="bear-belly-shine"></div>
+        </div>
+        <div class="bear-mark">♥</div>
       </div>
 
-      <h1 class="home-title home-title-white">
-        <span>Hi, I'm</span>
-        <span class="home-title-name">Polly</span>
-      </h1>
+      <div class="bear-shadow"></div>
+      <div class="bear-hint" id="bear-hint">Tap me 🖱️</div>
+    </div>
 
-      <p class="home-subtitle home-subtitle-white">
-        Walking with AI · Planting a small forest in the digital world 🌲
-      </p>
+    <!-- ============ 🎴 Entry cards ============ -->
+    <div class="home-entries home-entries-simplified">
+      <a href="blog-en.html" class="entry-card entry-blog">
+        <div class="entry-icon">
+          <span class="entry-icon-main">📖</span>
+        </div>
+        <div class="entry-text">
+          <h3>Blog</h3>
+          <p>Inspiration & daily</p>
+        </div>
+      </a>
 
-      <div class="home-entries">
+      <a href="portfolio-en.html" class="entry-card entry-portfolio">
+        <div class="entry-icon">
+          <span class="entry-icon-main">🎨</span>
+        </div>
+        <div class="entry-text">
+          <h3>Portfolio</h3>
+          <p>AI product experiments</p>
+        </div>
+      </a>
 
-        <a href="blog-en.html" class="entry-card entry-blog">
-          <div class="entry-icon">
-            <span class="entry-icon-main">📖</span>
-          </div>
-          <div class="entry-text">
-            <h3>Blog</h3>
-            <p>Notes on inspiration & everyday life</p>
-          </div>
-        </a>
+      <a href="gallery-en.html" class="entry-card entry-gallery">
+        <div class="entry-icon">
+          <span class="entry-icon-main">📮</span>
+        </div>
+        <div class="entry-text">
+          <h3>Postcards</h3>
+          <p>Frozen moments</p>
+        </div>
+      </a>
 
-        <a href="portfolio-en.html" class="entry-card entry-portfolio">
-          <div class="entry-icon">
-            <span class="entry-icon-main">🎨</span>
-          </div>
-          <div class="entry-text">
-            <h3>Portfolio</h3>
-            <p>AI products & idea experiments</p>
-          </div>
-        </a>
+      <a href="me-en.html" class="entry-card entry-me">
+        <div class="entry-icon">
+          <span class="entry-icon-main">🌿</span>
+        </div>
+        <div class="entry-text">
+          <h3>About</h3>
+          <p>A little about my story</p>
+        </div>
+      </a>
+    </div>
 
-        <a href="gallery-en.html" class="entry-card entry-gallery">
-          <div class="entry-icon">
-            <span class="entry-icon-main">📮</span>
-          </div>
-          <div class="entry-text">
-            <h3>Postcards</h3>
-            <p>Moments frozen by the camera</p>
-          </div>
-        </a>
-
-        <a href="me-en.html" class="entry-card entry-me">
-          <div class="entry-icon">
-            <span class="entry-icon-main">🌿</span>
-          </div>
-          <div class="entry-text">
-            <h3>About</h3>
-            <p>A little about my story</p>
-          </div>
-        </a>
-
-      </div>
-
-    </section>
   </div>
 
   <footer class="footer footer-home">
@@ -140,6 +135,7 @@
   </footer>
 
   <script src="home-particles.js"></script>
+  <script src="home-bear.js"></script>
 
 </body>
 </html>

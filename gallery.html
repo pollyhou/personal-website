@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
   <!-- 🏡 森林农场装饰元素 -->
   <div class="cloud cloud-1"></div>
   <div class="cloud cloud-2"></div>
@@ -47,23 +48,64 @@
   </nav>
 
   <div class="container">
+
     <div class="page-header">
       <h1 class="page-title">📮 时光明信片</h1>
-      <p class="page-subtitle">用镜头收集的一些片刻 · 点一下信箱，随机收一张来自过去的明信片</p>
+      <p class="page-subtitle">点击下方的木制邮箱，随机抽一张来自过去的时光明信片 ✉️</p>
     </div>
 
-    <!-- ✉️ 大型信箱 · 点击随机抽取 -->
+    <!-- ✉️ 大信箱 - 木质童话风格 -->
     <div class="mailbox-section">
-      <div class="mailbox-wrapper" id="mailbox">
-        <div class="mailbox-body">
-          <div class="mailbox-slot"></div>
-          <div class="mailbox-door">
-            <div class="mailbox-door-knob">●</div>
-          </div>
-          <div class="mailbox-label">POST · MAIL</div>
+      <div class="mailbox-wrapper-big" id="mailbox">
+
+        <!-- 云朵提示 -->
+        <div class="mailbox-cloud" id="mailbox-hint">
+          <span>点我 📬 随机抽一张</span>
         </div>
-        <div class="mailbox-post"></div>
-        <div class="mailbox-hint" id="mailbox-hint">👉 点我，抽一张时光明信片</div>
+
+        <!-- 信箱本体：顶部弧形盖 + 长方形木箱 -->
+        <div class="wood-mailbox">
+
+          <!-- 信箱顶盖 -->
+          <div class="wood-top">
+            <!-- 投信口 -->
+            <div class="wood-slot"></div>
+            <!-- 顶盖装饰线 -->
+            <div class="wood-top-line"></div>
+          </div>
+
+          <!-- 信箱主身 -->
+          <div class="wood-body">
+            <!-- 小门 -->
+            <div class="wood-door">
+              <div class="wood-door-label">MAIL</div>
+              <div class="wood-door-knob"></div>
+            </div>
+
+            <!-- 装饰木纹 -->
+            <div class="wood-grain wood-grain-1"></div>
+            <div class="wood-grain wood-grain-2"></div>
+            <div class="wood-grain wood-grain-3"></div>
+
+            <!-- 小装饰花朵 -->
+            <div class="wood-decor">🌸</div>
+          </div>
+
+          <!-- 木柱 -->
+          <div class="wood-post">
+            <div class="wood-post-grain wood-post-grain-1"></div>
+            <div class="wood-post-grain wood-post-grain-2"></div>
+          </div>
+
+          <!-- 地面影子 -->
+          <div class="mailbox-ground-shadow"></div>
+
+          <!-- 周围飞着的小花瓣 -->
+          <span class="mailbox-petal p1">🌸</span>
+          <span class="mailbox-petal p2">✨</span>
+          <span class="mailbox-petal p3">🌸</span>
+        </div>
+
       </div>
     </div>
 
@@ -92,10 +134,9 @@
         <h2>✎ 照片墙</h2>
         <span class="sub">Photo Wall</span>
       </div>
-
-      <!-- 这里的内容由 gallery.js 自动生成 -->
       <div id="photo-grid"></div>
     </div>
+
   </div>
 
   <!-- 🌲 底部森林场景 -->
@@ -119,7 +160,6 @@
     <button class="lightbox-close" id="lightbox-close">×</button>
   </div>
 
-  <!-- 核心逻辑：渲染照片 + 灯箱 -->
   <script src="gallery.js"></script>
 </body>
 </html>
