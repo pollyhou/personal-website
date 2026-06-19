@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog · 侯小雯 Wonderland</title>
+  <title>Blog · 侯小雯</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/marked.min.js"></script>
 </head>
@@ -13,7 +13,7 @@
   <div class="cloud cloud-3"></div>
 
   <nav class="nav">
-    <a class="nav-brand" href="index.html">侯小雯 <span>·</span> Wonderland</a>
+    <a class="nav-brand" href="index.html">侯小雯</a>
     <div class="nav-menu">
       <a class="nav-link" href="index.html">首页</a>
       <a class="nav-link active" href="blog.html">Blog</a>
@@ -58,7 +58,7 @@
     <p class="forest-quote">~ 在数字世界里种一片小森林 ~</p>
   </div>
 
-  <footer class="footer"><p>© 2025 侯小雯 · Made with <span class="footer-heart">♥</span> in Wonderland</p></footer>
+  <footer class="footer"><p>© 2025 侯小雯 · Made with <span class="footer-heart">♥</span></p></footer>
 
   <script>
     function escapeHtml(s) {
@@ -91,7 +91,7 @@
         } catch (e) {
           document.getElementById("article-content").textContent = post.content || "";
         }
-        document.title = (post.title || "Blog") + " · 侯小雯 Wonderland";
+        document.title = (post.title || "Blog") + " · 侯小雯";
       } catch (e) {
         document.getElementById("article-title").textContent = "哎呀，这篇文章不见了";
         document.getElementById("article-content").innerHTML = "<p>可能已删除，或数据库尚未初始化。</p>";
@@ -102,7 +102,7 @@
     async function showList() {
       listView.style.display = "block";
       articleView.style.display = "none";
-      document.title = "Blog · 侯小雯 Wonderland";
+      document.title = "Blog · 侯小雯";
       postList.innerHTML = '<p style="padding:40px 0;text-align:center;color:var(--ink-soft);">正在从数据库拉取文章… 🌱</p>';
 
       try {

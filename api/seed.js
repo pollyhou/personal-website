@@ -148,11 +148,11 @@ async function handler(req, res) {
     // -------- 博客文章（示例 · 你可以在 MongoDB 里继续加）--------
     const posts = [
       {
-        title: "欢迎来到我的 Wonderland 🌳",
-        slug: "welcome-to-wonderland",
+        title: "欢迎来到我的数字花园 🌳",
+        slug: "welcome",
         excerpt: "这里记录我探索世界、与 AI 共同成长的点滴。",
         content:
-          "你好！这里是侯小雯的个人博客。我会在这里分享我的学习笔记、灵感随笔，以及和 AI 一起探索世界的过程。希望你也能在这里找到属于自己的小森林。",
+          "你好！这里是我的个人博客。我会在这里分享学习笔记、灵感随笔，以及和 AI 一起探索世界的过程。希望你也能在这里找到属于自己的小森林。",
         date: "2025-06-20",
         tags: ["随笔", "about"],
         readTime: "2 min",

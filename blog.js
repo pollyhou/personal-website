@@ -1,5 +1,5 @@
 /* ============================================================
- *  侯小雯 Wonderland · Blog
+ *  侯小雯 · Blog
  *  从 GitHub 仓库动态拉取 Obsidian 中的 Markdown 文章
  *  Obsidian → GitHub → 个人网站
  * ============================================================ */
@@ -130,7 +130,7 @@ async function loadAndRenderArticle(filename) {
     if (endCard) endCard.style.display = "block";
 
     // 更新页面标题
-    document.title = `${title} · 侯小雯 Wonderland`;
+    document.title = `${title} · 侯小雯`;
 
     if (loadingEl) loadingEl.style.display = "none";
   } catch (err) {
