@@ -1100,7 +1100,7 @@ body::before {
 }
 
 /* ============================================
-   🏡 底部森林场景
+   🌲 底部森林场景 · 像素松树 + 跳动小兔
    ============================================ */
 .scene-footer {
   margin-top: 60px;
@@ -1108,57 +1108,171 @@ body::before {
   text-align: center;
   background: linear-gradient(180deg,
     transparent 0%,
-    var(--sky) 30%,
-    var(--sky-deep) 70%,
-    var(--leaf-deep) 100%);
-  border-top: 4px solid var(--wood-dark);
+    #cfe2d4 20%,
+    #a8cfb8 70%,
+    #7bb884 100%);
+  border-top: 4px solid #5c4530;
   position: relative;
+  z-index: 5;
+  overflow: hidden;
+}
+
+/* 地面：一条水平的草坪 */
+.scene-footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  background: linear-gradient(180deg,
+    #a8cfb8 0%,
+    #7bb884 50%,
+    #5a9a6a 100%);
+  border-top: 4px solid #4a7a58;
+  z-index: 1;
+}
+
+/* 新的底部像素森林布局 */
+.pixel-forest {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 0 40px;
   z-index: 5;
 }
 
-/* 地面像素森林 */
-.forest-ground {
+/* 左侧松树组 */
+.pine-trees-left,
+.pine-trees-right {
   display: flex;
-  justify-content: center;
   align-items: flex-end;
   gap: 8px;
-  padding: 20px 0 32px;
-  font-size: 48px;
-  filter: drop-shadow(2px 3px 0 rgba(45, 74, 34, 0.3));
-  flex-wrap: wrap;
-  line-height: 1;
 }
 
-.forest-ground span {
-  display: inline-block;
-  transition: transform 0.3s ease;
+/* 单个 SVG 松树容器 */
+.pine-tree {
+  width: 80px;
+  height: 130px;
+  filter: drop-shadow(3px 4px 0 rgba(45, 74, 34, 0.3));
+  animation: treeWiggle 4s ease-in-out infinite;
 }
 
-.forest-ground span:hover {
-  transform: translateY(-6px) scale(1.1);
+.pine-tree.medium {
+  width: 70px;
+  height: 110px;
+  animation-delay: 0.5s;
 }
 
-/* 草地分隔线 */
-.grass-line {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin: 0 0 16px;
-  font-size: 24px;
-  color: var(--leaf-deep);
-  opacity: 0.8;
-  letter-spacing: 8px;
+.pine-tree.small {
+  width: 55px;
+  height: 90px;
+  animation-delay: 1s;
+}
+
+@keyframes treeWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(1.5deg); }
+}
+
+/* 松树组之间的兔子 */
+.pixel-rabbit-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.pixel-rabbit {
+  width: 70px;
+  height: 80px;
+  filter: drop-shadow(2px 3px 0 rgba(45, 74, 34, 0.35));
+  animation: rabbitHop 2.5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes rabbitHop {
+  0%   { transform: translateY(0) scaleY(0.95); }
+  10%  { transform: translateY(-18px) scaleY(1.1) scaleX(0.92); }
+  20%  { transform: translateY(-28px) scaleY(1.15) scaleX(0.9); }
+  30%  { transform: translateY(-18px) scaleY(1.05); }
+  40%  { transform: translateY(0) scaleY(0.88) scaleX(1.1); }
+  50%  { transform: translateY(0) scaleY(0.92); }
+  70%  { transform: translateY(-5px) scaleY(1); }
+  100% { transform: translateY(0) scaleY(0.95); }
+}
+
+/* 兔子阴影 */
+.pixel-rabbit-shadow {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 14px;
+  background: radial-gradient(ellipse at center,
+    rgba(45, 74, 34, 0.45) 0%,
+    rgba(45, 74, 34, 0.15) 50%,
+    rgba(45, 74, 34, 0) 80%);
+  filter: blur(2px);
+  animation: rabbitShadow 2.5s ease-in-out infinite;
+}
+
+@keyframes rabbitShadow {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+  20%      { transform: translateX(-50%) scale(0.75); opacity: 0.4; }
+  50%      { transform: translateX(-50%) scale(1); opacity: 0.6; }
+}
+
+/* 小花点缀 */
+.pixel-flower {
+  width: 22px;
+  height: 30px;
+  filter: drop-shadow(1px 2px 0 rgba(45, 74, 34, 0.3));
+  animation: flowerSway 3s ease-in-out infinite;
+}
+
+@keyframes flowerSway {
+  0%, 100% { transform: rotate(-3deg); }
+  50%      { transform: rotate(3deg); }
 }
 
 /* 底部说明文字 */
 .scene-footer p.forest-quote {
-  color: var(--paper);
+  color: #3d5a2f;
   font-size: 14px;
   font-style: italic;
-  margin-bottom: 0;
-  padding: 12px 0;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  margin: 0;
+  padding: 12px 0 24px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+  z-index: 5;
 }
+
+/* 响应式 */
+@media (max-width: 640px) {
+  .pine-tree        { width: 60px; height: 100px; }
+  .pine-tree.medium { width: 55px; height: 85px; }
+  .pine-tree.small  { width: 40px; height: 70px; }
+  .pixel-rabbit     { width: 55px; height: 65px; }
+  .pixel-rabbit-shadow { width: 40px; height: 12px; }
+}
+
+@media (max-width: 480px) {
+  .pine-tree        { width: 50px; height: 85px; }
+  .pine-tree.medium { width: 45px; height: 75px; }
+  .pine-tree.small  { width: 35px; height: 60px; }
+  .pixel-rabbit     { width: 45px; height: 55px; }
+  .pixel-rabbit-shadow { width: 32px; height: 10px; }
+}
+
+/* ============================================
+   🌲 底部森林场景结束
+   ============================================ */
 
 /* ============================================
    🦶 页脚
@@ -2910,4 +3024,725 @@ body > * {
 
 @media (max-width: 400px) {
   .home-title { flex-direction: column; gap: 2px; }
+}
+
+/* ============================================================
+ *  ✨ 封面式首页 · Cover Hero
+ * ============================================================ */
+
+.cover-hero {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 40px 20px;
+}
+
+.cover-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: transform 0.1s ease-out;
+}
+
+/* ---------- 远景：远山 ---------- */
+.cover-far {
+  align-items: flex-end;
+  padding-bottom: 30%;
+}
+
+.far-mountain {
+  width: 120%;
+  max-width: 1200px;
+  height: auto;
+  opacity: 0.6;
+}
+
+/* ---------- 中景：漂浮小岛 ---------- */
+.cover-mid {
+  align-items: center;
+  padding-top: 80px;
+}
+
+.floating-island {
+  position: relative;
+  width: 500px;
+  max-width: 80vw;
+  animation: islandFloat 6s ease-in-out infinite;
+}
+
+.floating-island .island-top {
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(180deg, #8cc098 0%, #6aa878 100%);
+  border-radius: 50% 50% 40% 40%;
+  box-shadow: 0 4px 0 #5a9a6a;
+}
+
+.floating-island .island-bottom {
+  width: 70%;
+  height: 40px;
+  margin: -8px auto 0;
+  background: linear-gradient(180deg, #8b6b4a 0%, #6b4f35 100%);
+  border-radius: 0 0 50% 50%;
+  box-shadow: 0 6px 12px rgba(90, 60, 30, 0.3);
+}
+
+@keyframes islandFloat {
+  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+  50% { transform: translateY(-12px) rotate(0.5deg); }
+}
+
+/* ---------- 主视觉：大门 + 标题 ---------- */
+.cover-main {
+  flex-direction: column;
+  gap: 30px;
+  z-index: 5;
+  pointer-events: auto;
+}
+
+/* 魔法光效 */
+.magic-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(245, 196, 75, 0.3) 0%, rgba(245, 196, 75, 0.1) 40%, transparent 70%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: glowPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* 森林大门 */
+.forest-gate {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.gate-arch {
+  position: relative;
+  width: 180px;
+  height: 260px;
+}
+
+.gate-door {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 220px;
+  background: linear-gradient(180deg, #a87840 0%, #8b5e2f 50%, #6b4520 100%);
+  border: 4px solid #4a3015;
+  border-radius: 70px 70px 8px 8px;
+  box-shadow:
+    inset 0 4px 8px rgba(255, 220, 180, 0.25),
+    inset 0 -6px 12px rgba(40, 20, 5, 0.4),
+    0 8px 20px rgba(60, 35, 15, 0.35),
+    0 0 0 2px #3a2510;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.gate-door::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 2px solid rgba(74, 48, 21, 0.4);
+  border-radius: 55px 55px 6px 6px;
+  pointer-events: none;
+}
+
+/* 门上的小窗 */
+.gate-window {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #f5d05a 0%, #e8a87c 100%);
+  border: 3px solid #4a3015;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 200, 0.4),
+    0 0 20px rgba(245, 208, 90, 0.5);
+  animation: windowGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes windowGlow {
+  0%, 100% { box-shadow: inset 0 2px 4px rgba(255, 255, 200, 0.4), 0 0 15px rgba(245, 208, 90, 0.4); }
+  50% { box-shadow: inset 0 2px 4px rgba(255, 255, 200, 0.6), 0 0 30px rgba(245, 208, 90, 0.7); }
+}
+
+/* 门把手 */
+.gate-handle {
+  position: absolute;
+  right: 18px;
+  top: 55%;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 30% 30%, #f5d05a 0%, #c8a030 70%);
+  border-radius: 50%;
+  border: 2px solid #8b6914;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 门环装饰 */
+.gate-knocker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  animation: knockerSwing 3s ease-in-out infinite;
+}
+
+@keyframes knockerSwing {
+  0%, 100% { transform: translate(-50%, -50%) rotate(-5deg); }
+  50% { transform: translate(-50%, -50%) rotate(5deg); }
+}
+
+/* 门两侧的藤蔓 */
+.gate-vine {
+  position: absolute;
+  top: -10px;
+  font-size: 40px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+}
+
+.gate-vine.vine-left {
+  left: -5px;
+  animation: vineGrow 4s ease-in-out infinite;
+}
+
+.gate-vine.vine-right {
+  right: -5px;
+  transform: scaleX(-1);
+  animation: vineGrow 4s ease-in-out infinite 1s;
+}
+
+@keyframes vineGrow {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(-6px) scaleY(1.1); }
+}
+
+.gate-vine.vine-right {
+  animation-name: vineGrowRight;
+}
+
+@keyframes vineGrowRight {
+  0%, 100% { transform: scaleX(-1) translateY(0) scaleY(1); }
+  50% { transform: scaleX(-1) translateY(-6px) scaleY(1.1); }
+}
+
+/* 悬停效果 */
+.forest-gate:hover .gate-door {
+  transform: translateX(-50%) translateY(-4px) scale(1.02);
+  box-shadow:
+    inset 0 4px 8px rgba(255, 220, 180, 0.3),
+    inset 0 -6px 12px rgba(40, 20, 5, 0.4),
+    0 12px 28px rgba(60, 35, 15, 0.4),
+    0 0 0 2px #3a2510;
+}
+
+.forest-gate:hover .gate-window {
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 200, 0.6),
+    0 0 40px rgba(245, 208, 90, 0.9);
+}
+
+.forest-gate:hover .gate-text .gate-enter {
+  letter-spacing: 4px;
+}
+
+.forest-gate:active .gate-door {
+  transform: translateX(-50%) translateY(-1px) scale(0.98);
+}
+
+/* 门下方的文字 */
+.gate-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gate-enter {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--wood-dark);
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6);
+  transition: letter-spacing 0.3s ease;
+}
+
+.gate-hint {
+  font-size: 13px;
+  color: var(--leaf-deep);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* 封面标题 */
+.cover-title {
+  text-align: center;
+  z-index: 5;
+}
+
+.cover-name {
+  font-size: 56px;
+  font-weight: bold;
+  color: var(--wood-dark);
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+  text-shadow:
+    2px 2px 0 rgba(255, 255, 255, 0.5),
+    4px 4px 0 rgba(93, 64, 55, 0.15);
+  animation: titleFloat 4s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.cover-tagline {
+  font-size: 16px;
+  color: var(--leaf-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-style: italic;
+}
+
+.tagline-line {
+  display: inline-block;
+}
+
+.tagline-dot {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* ---------- 近景：飘落的叶子和闪光点 ---------- */
+.cover-near {
+  pointer-events: none;
+}
+
+.float-leaf {
+  position: absolute;
+  font-size: 24px;
+  filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.15));
+  opacity: 0.85;
+}
+
+.leaf-1 {
+  top: 15%;
+  left: 10%;
+  animation: leafFall1 8s ease-in-out infinite;
+}
+
+.leaf-2 {
+  top: 25%;
+  right: 12%;
+  font-size: 20px;
+  animation: leafFall2 10s ease-in-out infinite;
+}
+
+.leaf-3 {
+  bottom: 30%;
+  left: 8%;
+  font-size: 22px;
+  animation: leafFall3 7s ease-in-out infinite;
+}
+
+@keyframes leafFall1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(15px, -20px) rotate(20deg); }
+  50% { transform: translate(5px, -10px) rotate(-10deg); }
+  75% { transform: translate(-10px, -25px) rotate(15deg); }
+}
+
+@keyframes leafFall2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-20px, -15px) rotate(-20deg); }
+  66% { transform: translate(-5px, -30px) rotate(10deg); }
+}
+
+@keyframes leafFall3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(20px, -18px) rotate(25deg); }
+}
+
+.float-sparkle {
+  position: absolute;
+  font-size: 16px;
+  color: var(--sun);
+  filter: drop-shadow(0 0 6px rgba(245, 196, 75, 0.6));
+  animation: sparkleTwinkle 2.5s ease-in-out infinite;
+}
+
+.spark-1 {
+  top: 20%;
+  left: 25%;
+  animation-delay: 0s;
+}
+
+.spark-2 {
+  top: 40%;
+  right: 20%;
+  font-size: 14px;
+  animation-delay: 0.8s;
+}
+
+.spark-3 {
+  bottom: 35%;
+  right: 30%;
+  font-size: 18px;
+  animation-delay: 1.6s;
+}
+
+@keyframes sparkleTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.7) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.4) rotate(180deg); }
+}
+
+/* ---------- 向下滚动提示 ---------- */
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--leaf-deep);
+  font-size: 13px;
+  font-style: italic;
+  opacity: 0.7;
+  animation: hintBounce 2s ease-in-out infinite;
+}
+
+.scroll-mouse {
+  width: 24px;
+  height: 38px;
+  border: 2px solid var(--leaf-deep);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-wheel {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 8px;
+  background: var(--leaf-deep);
+  border-radius: 2px;
+  animation: wheelScroll 1.5s ease-in-out infinite;
+}
+
+@keyframes wheelScroll {
+  0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(14px); }
+}
+
+@keyframes hintBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-6px); }
+}
+
+/* ============================================================
+ *  🎴 入口小径 · Entry Paths
+ * ============================================================ */
+
+.entries-section {
+  padding: 80px 0 40px;
+  position: relative;
+  z-index: 5;
+}
+
+.entries-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.entries-title {
+  font-size: 32px;
+  color: var(--wood-dark);
+  margin-bottom: 8px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.entries-subtitle {
+  font-size: 15px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.entry-path-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.entry-path {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 22px;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: 20px;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: 0 4px 12px rgba(74, 107, 58, 0.08);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.entry-path::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--path-color, var(--leaf));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.entry-path::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, transparent 60%, rgba(255, 255, 255, 0.4) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.entry-path:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 32px rgba(74, 107, 58, 0.18);
+  border-color: var(--path-color, var(--leaf));
+}
+
+.entry-path:hover::before {
+  transform: scaleX(1);
+}
+
+.entry-path:hover::after {
+  opacity: 1;
+}
+
+.entry-path:hover .path-icon {
+  transform: scale(1.15) rotate(-8deg);
+  border-color: var(--path-color, var(--leaf));
+}
+
+.entry-path:hover .path-arrow {
+  transform: translateX(6px);
+  opacity: 1;
+  color: var(--path-color, var(--leaf));
+}
+
+.path-icon {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  background: #fff;
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(74, 107, 58, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  z-index: 2;
+}
+
+.path-content {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.path-content h3 {
+  font-size: 18px;
+  color: var(--ink);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.path-content p {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.path-arrow {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-light);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.path-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 768px) {
+  .cover-hero {
+    min-height: calc(100vh - 120px);
+  }
+
+  .cover-name {
+    font-size: 40px;
+    letter-spacing: 2px;
+  }
+
+  .cover-tagline {
+    font-size: 14px;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .tagline-dot { display: none; }
+
+  .gate-arch {
+    width: 150px;
+    height: 220px;
+  }
+
+  .gate-door {
+    width: 115px;
+    height: 185px;
+  }
+
+  .gate-window {
+    width: 40px;
+    height: 40px;
+    top: 25px;
+  }
+
+  .gate-knocker {
+    font-size: 26px;
+  }
+
+  .floating-island {
+    width: 350px;
+  }
+
+  .entries-section {
+    padding: 50px 0 20px;
+  }
+
+  .entries-title {
+    font-size: 24px;
+  }
+
+  .entry-path-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .entry-path {
+    padding: 18px 16px;
+  }
+
+  .path-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
+
+  .path-content h3 {
+    font-size: 16px;
+  }
+
+  .path-content p {
+    font-size: 12px;
+  }
+
+  .float-leaf,
+  .float-sparkle {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .cover-name {
+    font-size: 32px;
+  }
+
+  .gate-arch {
+    width: 130px;
+    height: 190px;
+  }
+
+  .gate-door {
+    width: 100px;
+    height: 160px;
+  }
+
+  .gate-window {
+    width: 34px;
+    height: 34px;
+  }
+
+  .floating-island {
+    width: 280px;
+  }
+
+  .scroll-hint {
+    bottom: 20px;
+  }
 }
